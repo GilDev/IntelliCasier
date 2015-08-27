@@ -1,7 +1,7 @@
 #ifndef GLOBAL_H
 #define GLOBAL_H
 
-#include "LedControl.h"
+#include <LedControl.h>
 
 extern LedControl disp;
 
