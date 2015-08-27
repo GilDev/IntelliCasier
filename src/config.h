@@ -11,7 +11,11 @@
 #define EMPTY_SPACE_ROLL_SIZE 8     // Number of blank columns to display when rolling
 #define TEXT_SCROLLING_SPEED  200   // Time between a column shift occurs when scrolling text in milliseconds
 
-#define NUMBER_OF_BUTTONS 5
+
+#define MAX_CHIP_DIN_PIN  2
+#define MAX_CHIP_CLK_PIN  4
+#define MAX_CHIP_LOAD_PIN 3
+
 const unsigned char buttonsPins[] = {
 	5, // PLAYER1_LEFT
 	6, // PLAYER1_RIGHT

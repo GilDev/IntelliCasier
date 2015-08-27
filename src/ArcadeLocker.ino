@@ -3,7 +3,7 @@
 #include "events.h"
 #include "menu.h"
 
-LedControl disp = LedControl(2, 4, 3, 1);
+LedControl disp = LedControl(MAX_CHIP_DIN_PIN, MAX_CHIP_CLK_PIN, MAX_CHIP_LOAD_PIN, 1);
 
 void setup() {
 	#ifdef DEBUG
@@ -14,7 +14,7 @@ void setup() {
 	byte i;
 
 	// Inputs
-	for (i = 0; i < NUMBER_OF_BUTTONS; i++)
+	for (i = 0; i < 5; i++)
 		pinMode(buttonsPins[i], INPUT_PULLUP);
 
 	// Display

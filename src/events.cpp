@@ -40,7 +40,7 @@ void eventsInit(void)
 void eventsUpdateLoop(void)
 {
 	// INPUTS
-	for (i = 0; i < NUMBER_OF_BUTTONS; i++) {
+	for (i = 0; i < 5; i++) {
 		byte state = digitalRead(buttonsPins[i]);
 
 		// Single click
