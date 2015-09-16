@@ -3,10 +3,10 @@ Arcade Locker
 
 This project uses a standard school locker with two 8*8 holes grids. 5 mm LEDs fits beautifully in those holes, small tactile switches too, a LCD display can be added in the name's tag space, thus a boring locker can be easily transformed into a multi-game arcade cabinet. Enjoy! (menus only in French for now)
 
-*First prototype:*
+*First prototype:*  
 ![First prototype](assets/photos/FirstPrototype.jpg)
 
-This project is licensed under the terms of the MIT license. Check [`LICENSE.md`](LICENSE.md) for more informations.
+This project is licensed under the terms of the MIT license. Check [`LICENSE.txt`](LICENSE.txt) for more informations.
 
 
 Features
