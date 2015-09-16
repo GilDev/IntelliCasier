@@ -6,7 +6,7 @@
 LedControl disp = LedControl(MAX_CHIP_DIN_PIN, MAX_CHIP_CLK_PIN, MAX_CHIP_LOAD_PIN, 1);
 
 void setup() {
-	#ifdef DEBUG
+	#ifdef SERIAL_DEBUG
 		Serial.begin(9600);
 		Serial.print("Ready");
 	#endif

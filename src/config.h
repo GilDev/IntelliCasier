@@ -2,6 +2,7 @@
 #define CONFIG_H
 
 #define DEBUG
+#define SERIAL_DEBUG // Only define if DEBUG is defined
 
 #define DEFAULT_DISPLAY_INTENSITY 0 // Default LEDs intensity between 0-15
 #define DEBOUNCE_TIME 10            // Delay where no input can change after changing state

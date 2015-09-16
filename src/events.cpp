@@ -49,7 +49,7 @@ void eventsUpdateLoop(void)
 				if (millis() - buttons[i].lastActivation > DEBOUNCE_TIME) {
 					buttons[i].lastActivation = millis();
 					if (state == !BUTTON_OPEN) {
-						#ifdef DEBUG
+						#ifdef SERIAL_DEBUG
 							Serial.print("Single click: ");
 							Serial.println(i);
 						#endif
@@ -65,7 +65,7 @@ void eventsUpdateLoop(void)
 					buttons[i].lastActivation = millis();
 				} else {
 					if (!buttons[i].clicked && millis() - buttons[i].lastActivation > buttons[i].delay) {
-						#ifdef DEBUG
+						#ifdef SERIAL_DEBUG
 							Serial.print("Hold click: ");
 							Serial.println(i);
 						#endif
@@ -81,7 +81,7 @@ void eventsUpdateLoop(void)
 		} else {
 			if (state == !BUTTON_OPEN) {
 				if (millis() - buttons[i].lastActivation > buttons[i].delay) {
-					#ifdef DEBUG
+					#ifdef SERIAL_DEBUG
 						Serial.print("Repeat click: ");
 						Serial.println(i);
 					#endif
@@ -100,12 +100,28 @@ void eventsUpdateLoop(void)
 		if (timers[i].activated && actualTime >= timers[i].activationTime) {
 			timers[i].activationTime = actualTime + timers[i].delay;
 			(*timers[i].callback)();
-			#ifdef DEBUG
+			#ifdef SERIAL_DEBUG
 				Serial.print("Timer: ");
 				Serial.println(i);
 			#endif
 		}
 	}
+
+	#ifdef DEBUG
+	// Internal LED change state every 1000 loop cycle
+	static unsigned char ledState = LOW;
+	static unsigned short cycleCounter = 0;
+
+	if (++cycleCounter == 1000) {
+		cycleCounter = 0;
+		if (ledState)
+			ledState = LOW;
+		else
+			ledState = HIGH;
+	}
+
+	digitalWrite(13, ledState);
+	#endif
 }
 
 void setSingleClickHandler(ButtonId button, void (*callback)(void))
