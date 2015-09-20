@@ -10,7 +10,7 @@
 static char *scrollingText;
 static byte c;     // Character pointer
 static byte x;     // Character column pointer
-static byte displayingEmpty = false; // True when displaying an empty space
+static byte printingEmptySpace = false; // True when printing an empty space
 static byte i;
 
 static byte frameBuffer[8];
@@ -765,7 +765,7 @@ B0000,
 
 static void scroll(void)
 {
-	if (!displayingEmpty && (x >= pgm_read_byte(&font[actualLetterId][8]) || scrollingText[c] == ' ' || scrollingText[c] == '\0')) {
+	if (!printingEmptySpace && (x >= pgm_read_byte(&font[actualLetterId][8]) || scrollingText[c] == ' ' || scrollingText[c] == '\0')) {
 		switch (scrollingText[++c]) {
 			case ' ':
 				x = EMPTY_SPACE_SIZE;
@@ -779,21 +779,21 @@ static void scroll(void)
 				x = 1;
 		}
 
-		displayingEmpty = true;
+		printingEmptySpace = true;
 	}
 
-	if (displayingEmpty) {
+	if (printingEmptySpace) {
 		for (i = 0; i < 8; i++) {
 			frameBuffer[i] <<= 1;
-			disp.setRow(0, i, frameBuffer[i]);
+			matrix.setRow(0, i, frameBuffer[i]);
 		}
 
 		if (--x == 0)
-			displayingEmpty = false;
+			printingEmptySpace = false;
 	} else {
 		for (i = 0; i < 8; i++) {
 			frameBuffer[i] = (frameBuffer[i] << 1) | (pgm_read_byte(&font[actualLetterId][i]) >> pgm_read_byte(&font[actualLetterId][8]) - 1 - x) & 1;
-			disp.setRow(0, i, frameBuffer[i]);
+			matrix.setRow(0, i, frameBuffer[i]);
 		}
 		x++;
 	}
@@ -804,11 +804,11 @@ void newScroll(char *text)
 	if (timerActivated)
 		cancelTimerEvent(scrollingTimerId);
 
-	disp.clearDisplay(0);
+	matrix.clearDisplay(0);
 	scrollingText = text;
 	for (i = 0; i < 8; i++)
 		frameBuffer[i] = 0;
-	c = x = displayingEmpty = 0;
+	c = x = printingEmptySpace = 0;
 	scrollingTimerId = registerTimerEvent(TEXT_SCROLLING_SPEED, scroll);
 	timerActivated = true;
 }

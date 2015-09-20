@@ -3,7 +3,7 @@
 #include "events.h"
 #include "menu.h"
 
-LedControl disp = LedControl(MAX_CHIP_DIN_PIN, MAX_CHIP_CLK_PIN, MAX_CHIP_LOAD_PIN, 1);
+LedControl matrix = LedControl(MAX_CHIP_DIN_PIN, MAX_CHIP_CLK_PIN, MAX_CHIP_LOAD_PIN, 1);
 
 void setup() {
 	#ifdef SERIAL_DEBUG
@@ -17,9 +17,9 @@ void setup() {
 	for (i = 0; i < 5; i++)
 		pinMode(buttonsPins[i], INPUT_PULLUP);
 
-	// Display
-	disp.shutdown(0, false);
-	disp.setIntensity(0, DEFAULT_DISPLAY_INTENSITY);
+	// LED Matrix
+	matrix.shutdown(0, false);
+	matrix.setIntensity(0, DEFAULT_MATRIX_INTENSITY);
 
 	// App start
 	eventsInit();

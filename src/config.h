@@ -4,7 +4,7 @@
 #define DEBUG
 #define SERIAL_DEBUG // Only define if DEBUG is defined
 
-#define DEFAULT_DISPLAY_INTENSITY 0 // Default LEDs intensity between 0-15
+#define DEFAULT_MATRIX_INTENSITY 0 // Default LEDs intensity between 0-15
 #define DEBOUNCE_TIME 10            // Delay where no input can change after changing state
 #define BUTTON_OPEN HIGH            // Default value read when button is not pressed
 #define DELAY_BEFORE_SCREENSAVER 5  // In seconds

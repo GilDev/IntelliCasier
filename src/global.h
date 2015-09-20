@@ -3,6 +3,6 @@
 
 #include <LedControl.h>
 
-extern LedControl disp;
+extern LedControl matrix;
 
 #endif
