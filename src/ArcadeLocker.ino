@@ -4,12 +4,22 @@
 #include "events.h"
 #include "apps/menu.h"
 
+#ifdef RTC
+	#include <Wire.h>
+	#include "time.h"
+#endif
+
 LedControl matrix = LedControl(MAX_CHIP_DIN_PIN, MAX_CHIP_CLK_PIN, MAX_CHIP_LOAD_PIN, 1);
 
 void setup() {
 	#ifdef SERIAL_DEBUG
 		Serial.begin(9600);
 		Serial.print("Ready");
+	#endif
+
+	#ifdef RTC
+		Wire.begin();
+		rtc.begin();
 	#endif
 
 	byte i;
@@ -24,6 +34,7 @@ void setup() {
 
 	// App start
 	eventsInit();
+	timeInit();
 	menuInit();
 }
 

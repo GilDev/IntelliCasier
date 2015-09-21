@@ -4,6 +4,8 @@
 #define DEBUG
 #define SERIAL_DEBUG // Only define if DEBUG is defined
 
+#define RTC // Only define if you use a DS3231 RTC
+
 #define DEFAULT_MATRIX_INTENSITY 0 // Default LEDs intensity between 0-15
 #define DEBOUNCE_TIME 10            // Delay where no input can change after changing state
 #define BUTTON_OPEN HIGH            // Default value read when button is not pressed

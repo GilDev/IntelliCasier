@@ -47,6 +47,6 @@ Compilation
 
 I actually use [Arturo](https://github.com/scottdarch/Arturo) to compile the sketck. If you use the Arduino IDE, you must:
 
-* Install the LedControl library (copy [`lib/LedControl`](lib/LedControl) directory in your `libraries` folder or use the Library Manager (Arduino >= 1.6.2))
-* Add `#include <LedControl.h>` at the top of [`src/ArcadeLocker.ino`](src/ArcadeLocker.ino)
+* Copy all libraries in [`lib`](lib) in Arduino's `libraries` folder or use the Library Manager to install them (Arduino >= 1.6.2))
+* Add `#include <LedControl.h>` and `#include <Sodaq_3231>` at the top of [`src/ArcadeLocker.ino`](src/ArcadeLocker.ino)
 * Put all files in [`src`](src) in a directory named `ArcadeLocker`
