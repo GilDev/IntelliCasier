@@ -1,3 +1,4 @@
+#include <Arduino.h>
 #include "global.h"
 #include "config.h"
 #include "events.h"
