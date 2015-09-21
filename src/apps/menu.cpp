@@ -1,9 +1,9 @@
 #include <Arduino.h>
 #include "menu.h"
-#include "global.h"
-#include "config.h"
-#include "events.h"
-#include "scrolling.h"
+#include "../global.h"
+#include "../config.h"
+#include "../events.h"
+#include "../scrolling.h"
 
 static byte menuSelection    = 0;
 static byte submenuSelection = 0; // 0 if not in a submenu

@@ -2,7 +2,7 @@
 #include "global.h"
 #include "config.h"
 #include "events.h"
-#include "menu.h"
+#include "apps/menu.h"
 
 LedControl matrix = LedControl(MAX_CHIP_DIN_PIN, MAX_CHIP_CLK_PIN, MAX_CHIP_LOAD_PIN, 1);
 
