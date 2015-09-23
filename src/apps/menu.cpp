@@ -19,7 +19,10 @@ static void displayMenu(void)
 				newScroll("2 joueurs");
 				break;
 			default:
-				newScroll("A propos");
+				//newScroll("A propos");
+			stopScrolling();
+			for (byte i = 0; i < 8; i++)
+				matrix.setRow(0, i, 255);
 		}
 	} else {
 		switch (menuSelection) {
@@ -82,6 +85,12 @@ void right(void)
 
 void menu(void)
 {
+	if (menuSelection == 2) {
+		static byte foo = 0;
+		if (++foo == 16)
+			foo = 0;
+		matrix.setIntensity(0, foo);
+	} else
 	if (submenuSelection == 0)
 		submenuSelection = 1;
 	else
