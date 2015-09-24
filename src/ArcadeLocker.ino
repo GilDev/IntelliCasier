@@ -18,8 +18,9 @@ void setup() {
 		Serial.print("Ready");
 	#endif
 
+	Wire.begin();
+
 	#ifdef RTC
-		Wire.begin();
 		rtc.begin();
 	#endif
 
@@ -33,6 +34,7 @@ void setup() {
 	matrix.setIntensity(0, DEFAULT_MATRIX_INTENSITY);
 
 	// LCD
+	lcd.begin(16, 2);
 	lcd.backlight();
 	lcd.noCursor();
 	lcd.noBlink();
