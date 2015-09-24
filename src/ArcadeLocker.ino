@@ -44,7 +44,7 @@ void setup() {
 	// App start
 	eventsInit();
 	timeInit();
-	menuInit();
+	showMenu();
 }
 
 void loop() {
