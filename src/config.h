@@ -2,14 +2,16 @@
 #define CONFIG_H
 
 #define DEBUG
-//#define SERIAL_DEBUG // Only define if DEBUG is defined
+#define SERIAL_DEBUG // Only define if DEBUG is defined
 
 #define RTC // Only define if you use a DS3231 RTC
 
-#define DEFAULT_MATRIX_INTENSITY 0 // Default LEDs intensity between 0-15
+#define DEFAULT_MATRIX_INTENSITY 5 // Default LEDs intensity between 0-15
+#define SCREENSAVER_MATRIX_INTENSITY 0 // Default LEDs intensity between 0-15
+#define DELAY_BEFORE_SCREENSAVER_IN_MENU 10 // Cancel game. In seconds
+#define DELAY_BEFORE_SCREENSAVER_IN_GAME 30 // In seconds
 #define DEBOUNCE_TIME 10            // Delay where no input can change after changing state
 #define BUTTON_OPEN HIGH            // Default value read when button is not pressed
-#define DELAY_BEFORE_SCREENSAVER 5  // In seconds
 #define EMPTY_SPACE_SIZE 3          // Number of blank columns to display between words
 #define EMPTY_SPACE_ROLL_SIZE 8     // Number of blank columns to display when rolling
 #define TEXT_SCROLLING_SPEED  200   // Time between a column shift occurs when scrolling text in milliseconds

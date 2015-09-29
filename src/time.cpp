@@ -1,4 +1,5 @@
 #include <Arduino.h>
+#include <Sodaq_DS3231.h>
 #include "time.h"
 #include "global.h"
 #include "events.h"
@@ -15,7 +16,7 @@ DateTime getTime()
 	return rtc.now();
 }
 
-void timeInit()
+void timeInit(void)
 {
-
+	rtc.begin();
 }

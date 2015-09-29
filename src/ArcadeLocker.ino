@@ -2,6 +2,7 @@
 #include "global.h"
 #include "config.h"
 #include "events.h"
+#include "time.h"
 #include "apps/menu.h"
 
 #ifdef RTC
@@ -21,7 +22,10 @@ void setup() {
 	Wire.begin();
 
 	#ifdef RTC
-		rtc.begin();
+		timeInit();
+		randomSeed(getTime().getEpoch());
+	#else
+		randomSeed(analogRead(A7));
 	#endif
 
 	// Inputs
@@ -35,11 +39,7 @@ void setup() {
 
 	// LCD
 	lcd.begin(16, 2);
-	lcd.backlight();
-	lcd.noCursor();
-	lcd.noBlink();
-	lcd.noAutoscroll();
-	lcd.clear();
+	clearDisplays();
 
 	// App start
 	eventsInit();

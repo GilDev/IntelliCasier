@@ -1,9 +1,9 @@
-#ifndef POWER_MANAGEMENT_H
-#define POWER_MANAGEMENT_H
+#ifndef TIME_H
+#define TIME_H
 
-#include <Sodaq_DS3231.h> // Initialize the `rtc` variable, please don't use it. Also define DateTime type.
+#include <Sodaq_DS3231.h>
 
 DateTime getTime();
-void timeInit();
+void timeInit(void);
 
 #endif

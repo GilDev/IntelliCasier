@@ -1,6 +1,8 @@
 #include <Arduino.h>
 #include "events.h"
+#include "global.h"
 #include "config.h"
+#include "screensaver.h"
 
 #define NUMBER_OF_TIMER_EVENTS 10
 
@@ -28,8 +30,9 @@ static struct {
 	void (*callback)();
 } timers[NUMBER_OF_TIMER_EVENTS];
 
-
 static byte i; // Change type if NUMBER_OF_TIMER_EVENTS > 256
+
+unsigned long screensaverTimer = millis();
 
 void eventsInit(void)
 {
@@ -39,9 +42,20 @@ void eventsInit(void)
 
 void eventsUpdateLoop(void)
 {
+	unsigned long actualTime;
+
 	// INPUTS
 	for (i = 0; i < 5; i++) {
-		byte state = digitalRead(buttonsPins[i]);
+		actualTime = millis();
+
+		bool state = digitalRead(buttonsPins[i]);
+
+		// SCREENSAVER
+		if (state == !BUTTON_OPEN) // When an action is made, reset screensaver launch delay
+			screensaverTimer = actualTime;
+		else if (!displayingScreensaver && actualTime - screensaverTimer > screensaverDelay) {
+			showScreensaver();
+		}
 
 		// Single click
 		if (buttons[i].type == SINGLE) {
@@ -93,7 +107,6 @@ void eventsUpdateLoop(void)
 	}
 
 	// TIMERS
-	unsigned long actualTime = millis();
 	// This loop could be optimized with a queue and a counter
 	// of active timers instead of testing all timers
 	for (i = 0; i < NUMBER_OF_TIMER_EVENTS; i++) { 
@@ -108,19 +121,19 @@ void eventsUpdateLoop(void)
 	}
 
 	#ifdef DEBUG
-	// Internal LED change state every 1000 loop cycle
-	static unsigned char ledState = LOW;
-	static unsigned short cycleCounter = 0;
+		// Internal LED change state every 1000 loop cycle
+		static unsigned char ledState = LOW;
+		static unsigned short cycleCounter = 0;
 
-	if (++cycleCounter == 1000) {
-		cycleCounter = 0;
-		if (ledState)
-			ledState = LOW;
-		else
-			ledState = HIGH;
-	}
+		if (++cycleCounter == 1000) {
+			cycleCounter = 0;
+			if (ledState)
+				ledState = LOW;
+			else
+				ledState = HIGH;
+		}
 
-	digitalWrite(13, ledState);
+		digitalWrite(13, ledState);
 	#endif
 }
 
@@ -150,7 +163,7 @@ void setRepeatClickHandler(ButtonId button, unsigned short delay, void (*callbac
 }
 
 
-TimerId registerTimerEvent(unsigned int delay, void (*callback)(void))
+TimerId registerTimerEvent(unsigned short delay, void (*callback)(void))
 {
 	for (i = 0; i < NUMBER_OF_TIMER_EVENTS; i++)
 		if (!timers[i].activated) {
@@ -162,7 +175,7 @@ TimerId registerTimerEvent(unsigned int delay, void (*callback)(void))
 		}
 }
 
-void rescheduleTimerEvent(TimerId id, unsigned int newDelay)
+void rescheduleTimerEvent(TimerId id, unsigned short newDelay)
 {
 	timers[id].activationTime = newDelay;
 }

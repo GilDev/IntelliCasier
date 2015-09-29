@@ -6,5 +6,9 @@
 
 extern LedControl matrix;
 extern LiquidCrystal_I2C lcd;
+extern bool displayingScreensaver;
+extern unsigned short screensaverDelay;
+
+void clearDisplays(void);
 
 #endif

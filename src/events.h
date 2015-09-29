@@ -18,8 +18,8 @@ void setSingleClickHandler(ButtonId id, void (*callback)(void));
 void setHoldClickHandler(ButtonId button, unsigned short delay, void (*callback)(void));
 void setRepeatClickHandler(ButtonId button, unsigned short delay, void (*callback)(void));
 
-TimerId registerTimerEvent(unsigned int delay, void (*callback)(void));
-void rescheduleTimerEvent(TimerId id, unsigned int newDelay);
+TimerId registerTimerEvent(unsigned short delay, void (*callback)(void));
+void rescheduleTimerEvent(TimerId id, unsigned short newDelay);
 void cancelTimerEvent(TimerId id);
 
 #endif

@@ -101,6 +101,7 @@ void menu(void)
 
 void showMenu(void )
 {
+	clearDisplays();
 	setSingleClickHandler(PLAYER1_LEFT, left);
 	setSingleClickHandler(PLAYER2_LEFT, left);
 	setSingleClickHandler(PLAYER1_RIGHT, right);
