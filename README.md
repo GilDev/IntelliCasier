@@ -22,10 +22,11 @@ Features
     * Tron/Snake
   * About screen with hidden option menu **(not currently implemented)**
 * Event-driven software
+* Screensaver
 * High-scores logging **(not currently implemented)**
 * Sounds **(not currently implemented)**
-* Alarm when opening locker without pressing a predefined sequence of buttons
-* Automatic standby based on the time
+* Alarm when opening locker without pressing a predefined sequence of buttons **(not currently implemented)**
+* Automatic standby based on the time **(not currently implemented)**
 
 
 Requirements
@@ -33,9 +34,9 @@ Requirements
 
 * [Arduino (I use a Nano with an ATmega328)](http://www.banggood.com/ATmega328P-Nano-V3-Controller-Board-Compatible-Arduino-p-940937.html)
 * [MAX7219/MAX7221 with 8*8 LED matrix](http://www.banggood.com/MAX7219-Dot-Matrix-MCU-LED-Display-Control-Module-Kit-For-Arduino-p-915478.html)
-* [I2C 16*8 LCD display](http://www.banggood.com/IIC-I2C-1602-Blue-Backlight-LCD-Display-Module-For-Arduino-p-950726.html) (can work without but best to have it for ease of navigation) **(not currently implemented)**
+* [I2C 16*8 LCD display](http://www.banggood.com/IIC-I2C-1602-Blue-Backlight-LCD-Display-Module-For-Arduino-p-950726.html) (can work without but best to have it for ease of navigation)
 * 5 momentary pushbuttons
-* [DS3231 I2C RTC](http://www.banggood.com/DS3231-AT24C32-IIC-High-Precision-Real-Time-Clock-Module-For-Arduino-p-81066.html) *(optional)* **(not currently implemented)**
+* [DS3231 I2C RTC](http://www.banggood.com/DS3231-AT24C32-IIC-High-Precision-Real-Time-Clock-Module-For-Arduino-p-81066.html) *(optional)*
 * Piezoelectric buzzer *(optional)* **(not currently implemented)**
 * Photocell (LDR) *(optional)* **(not currently implemented)**
 
