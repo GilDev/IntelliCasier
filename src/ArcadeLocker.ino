@@ -13,6 +13,17 @@
 LedControl matrix = LedControl(MAX_CHIP_DIN_PIN, MAX_CHIP_CLK_PIN, MAX_CHIP_LOAD_PIN, 1);
 LiquidCrystal_I2C lcd(0x27, 16, 2);
 
+byte downArrow[] = {
+B00100,
+B00100,
+B00100,
+B00100,
+B00100,
+B11111,
+B01110,
+B00100};
+
+
 void setup() {
 	#ifdef SERIAL_DEBUG
 		Serial.begin(9600);
@@ -38,6 +49,7 @@ void setup() {
 	matrix.setIntensity(0, DEFAULT_MATRIX_INTENSITY);
 
 	// LCD
+	lcd.createChar(0, downArrow);
 	lcd.begin(16, 2);
 	clearDisplays();
 

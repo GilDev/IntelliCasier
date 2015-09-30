@@ -14,7 +14,7 @@ typedef byte TimerId;
 void eventsInit(void);
 void eventsUpdateLoop(void);
 
-void setSingleClickHandler(ButtonId id, void (*callback)(void));
+void setSingleClickHandler(ButtonId button, void (*callback)(void));
 void setHoldClickHandler(ButtonId button, unsigned short delay, void (*callback)(void));
 void setRepeatClickHandler(ButtonId button, unsigned short delay, void (*callback)(void));
 

@@ -5,44 +5,71 @@
 #include "../events.h"
 #include "../scrolling.h"
 
-static byte menuSelection    = 0;
-static byte submenuSelection = 0; // 0 if not in a submenu
+static byte menuSelection;
+static byte submenuSelection; // 0 if not in a submenu
 
 static void displayMenu(void)
 {
+	clearDisplays();
+
 	if (submenuSelection == 0) {
 		switch (menuSelection) {
 			case 0:
-				newScroll("1 joueur");
+				static char joueur1[] = "1 joueur";
+				newScroll(joueur1);
+				printLcd(8 - (sizeof joueur1) / 2, 0, joueur1);
+				printLcd(0, 1, "Valider ");
+				lcd.write(0);
 				break;
 			case 1:
-				newScroll("2 joueurs");
+				static char joueurs2[] = "2 joueurs";
+				newScroll(joueurs2);
+				printLcd(8 - (sizeof joueurs2) / 2, 0, joueurs2);
+				printLcd(0, 1, "Valider ");
+				lcd.write(0);
 				break;
 			default:
-				//newScroll("A propos");
-			stopScrolling();
-			for (byte i = 0; i < 8; i++)
-				matrix.setRow(0, i, 255);
+				static char aPropos[] = "A propos";
+				newScroll(aPropos);
+				printLcd(8 - (sizeof aPropos) / 2, 0, aPropos);
+				printLcd(0, 1, "Valider ");
+				lcd.write(0);
 		}
 	} else {
 		switch (menuSelection) {
 			case 0:
 				switch (submenuSelection) {
 					case 1:
-						newScroll("Course");
+						static char course[] = "Course";
+						newScroll(course);
+						printLcd(8 - (sizeof course) / 2, 0, course);
+						printLcd(2, 1, "Jouer ");
+						lcd.write(0);
 						break;
 					case 2:
-						newScroll("Snake");
+						static char snake[] = "Snake";
+						newScroll(snake);
+						printLcd(8 - (sizeof snake) / 2, 0, snake);
+						printLcd(2, 1, "Jouer ");
+						lcd.write(0);
 						break;
 				}
 				break;
 			case 1:
 				switch(submenuSelection) {
 					case 1:
-						newScroll("Pong");
+						static char pong[] = "Pong";
+						newScroll(pong);
+						printLcd(8 - (sizeof pong) / 2, 0, pong);
+						printLcd(2, 1, "Jouer ");
+						lcd.write(0);
 						break;
 					case 2:
-						newScroll("Tron");
+						static char tron[] = "Tron";
+						newScroll(tron);
+						printLcd(8 - (sizeof tron) / 2, 0, tron);
+						printLcd(2, 1, "Jouer ");
+						lcd.write(0);
 						break;
 				}
 		}
@@ -85,12 +112,6 @@ void right(void)
 
 void menu(void)
 {
-	if (menuSelection == 2) {
-		static byte foo = 0;
-		if (++foo == 16)
-			foo = 0;
-		matrix.setIntensity(0, foo);
-	} else
 	if (submenuSelection == 0)
 		submenuSelection = 1;
 	else
@@ -101,11 +122,14 @@ void menu(void)
 
 void showMenu(void )
 {
-	clearDisplays();
 	setSingleClickHandler(PLAYER1_LEFT, left);
 	setSingleClickHandler(PLAYER2_LEFT, left);
 	setSingleClickHandler(PLAYER1_RIGHT, right);
 	setSingleClickHandler(PLAYER2_RIGHT, right);
 	setSingleClickHandler(MENU, menu);
+
+	menuSelection = 0;
+	submenuSelection = 0;
+
 	displayMenu();
 }

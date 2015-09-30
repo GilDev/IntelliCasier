@@ -60,8 +60,8 @@ void eventsUpdateLoop(void)
 		// Single click
 		if (buttons[i].type == SINGLE) {
 			if (state != buttons[i].oldState) {
-				if (millis() - buttons[i].lastActivation > DEBOUNCE_TIME) {
-					buttons[i].lastActivation = millis();
+				if (actualTime - buttons[i].lastActivation > DEBOUNCE_TIME) {
+					buttons[i].lastActivation = actualTime;
 					if (state == !BUTTON_OPEN) {
 						#ifdef SERIAL_DEBUG
 							Serial.print("Single click: ");
@@ -76,9 +76,9 @@ void eventsUpdateLoop(void)
 		} else if (buttons[i].type == HOLD) {
 			if (state == !BUTTON_OPEN) {
 				if (state != buttons[i].oldState) {
-					buttons[i].lastActivation = millis();
+					buttons[i].lastActivation = actualTime;
 				} else {
-					if (!buttons[i].clicked && millis() - buttons[i].lastActivation > buttons[i].delay) {
+					if (!buttons[i].clicked && actualTime - buttons[i].lastActivation > buttons[i].delay) {
 						#ifdef SERIAL_DEBUG
 							Serial.print("Hold click: ");
 							Serial.println(i);
@@ -94,12 +94,12 @@ void eventsUpdateLoop(void)
 		// Repeat click
 		} else {
 			if (state == !BUTTON_OPEN) {
-				if (millis() - buttons[i].lastActivation > buttons[i].delay) {
+				if (actualTime - buttons[i].lastActivation > buttons[i].delay) {
 					#ifdef SERIAL_DEBUG
 						Serial.print("Repeat click: ");
 						Serial.println(i);
 					#endif
-					buttons[i].lastActivation = millis();
+					buttons[i].lastActivation = actualTime;
 					(*buttons[i].callback)();
 				}
 			}
@@ -107,6 +107,7 @@ void eventsUpdateLoop(void)
 	}
 
 	// TIMERS
+	actualTime = millis();
 	// This loop could be optimized with a queue and a counter
 	// of active timers instead of testing all timers
 	for (i = 0; i < NUMBER_OF_TIMER_EVENTS; i++) { 
