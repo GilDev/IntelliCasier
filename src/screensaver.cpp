@@ -39,6 +39,7 @@ void exitScreensaver(void)
 	cancelTimerEvent(displayUpdateTimer);
 	cancelTimerEvent(lcdUpdateTimer);
 	matrix.setIntensity(0, DEFAULT_MATRIX_INTENSITY);
+	lcd.display();
 	displayingScreensaver = false;
 	showMenu();
 }

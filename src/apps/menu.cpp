@@ -120,7 +120,7 @@ void menu(void)
 	displayMenu();
 }
 
-void showMenu(void )
+void showMenu(void)
 {
 	setSingleClickHandler(PLAYER1_LEFT, left);
 	setSingleClickHandler(PLAYER2_LEFT, left);

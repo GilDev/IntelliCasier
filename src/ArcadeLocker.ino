@@ -55,7 +55,6 @@ void setup() {
 
 	// App start
 	eventsInit();
-	timeInit();
 	showMenu();
 }
 
