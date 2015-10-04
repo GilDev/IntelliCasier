@@ -1,8 +1,7 @@
 #include <Arduino.h>
 #include <Sodaq_DS3231.h>
-#include "time.h"
-#include "global.h"
 #include "events.h"
+#include "time.h"
 
 static void checkTime()
 {

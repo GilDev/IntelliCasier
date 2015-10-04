@@ -1,11 +1,13 @@
 #include <Arduino.h>
-#include "scrolling.h"
-#include "global.h"
-#include "events.h"
-#include "config.h"
 #include <avr/pgmspace.h>
+#include "config.h"
+#include "displays.h"
+#include "events.h"
 
+// MATRIX
 #define actualLetterId ((scrollingText[c] >= 'a') ? scrollingText[c] - 'a' + 26 : (scrollingText[c] <= '9') ? scrollingText[c] - '0' + 26 * 2 : scrollingText[c] - 'A')
+
+LedControl matrix = LedControl(MAX_CHIP_DIN_PIN, MAX_CHIP_CLK_PIN, MAX_CHIP_LOAD_PIN, 1);
 
 static char *scrollingText;
 static byte c;     // Character pointer
@@ -763,6 +765,12 @@ B0000,
 4
 }};
 
+static void matrixInit(void)
+{
+	matrix.shutdown(0, false);
+	matrix.setIntensity(0, DEFAULT_MATRIX_INTENSITY);
+}
+
 static void scroll(void)
 {
 	if (!printingEmptySpace && (x >= pgm_read_byte(&font[actualLetterId][8]) || scrollingText[c] == ' ' || scrollingText[c] == '\0')) {
@@ -819,4 +827,46 @@ void stopScrolling(void)
 		cancelTimerEvent(scrollingTimerId);
 		timerActivated = false;
 	}
+}
+
+// LCD
+LiquidCrystal_I2C lcd(0x27, 16, 2);
+
+static byte downArrow[] = {
+	B00100,
+	B00100,
+	B00100,
+	B00100,
+	B00100,
+	B11111,
+	B01110,
+	B00100
+};
+
+static void lcdInit(void)
+{
+	Wire.begin();
+	lcd.createChar(0, downArrow);
+	lcd.begin(16, 2);
+}
+
+// COMMON
+void displaysInit(void)
+{
+	matrixInit();
+	lcdInit();
+}
+
+void clearDisplays(void)
+{
+	// LED Matrix
+	matrix.clearDisplay(0);
+	stopScrolling();
+
+	// LCD display
+	lcd.backlight();
+	lcd.noCursor();
+	lcd.noBlink();
+	lcd.noAutoscroll();
+	lcd.clear();
 }

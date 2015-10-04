@@ -1,7 +1,6 @@
 #include <Arduino.h>
-#include "events.h"
-#include "global.h"
 #include "config.h"
+#include "events.h"
 #include "screensaver.h"
 
 #define NUMBER_OF_TIMER_EVENTS 10
@@ -120,22 +119,6 @@ void eventsUpdateLoop(void)
 			#endif
 		}
 	}
-
-	#ifdef DEBUG
-		// Internal LED change state every 1000 loop cycle
-		static unsigned char ledState = LOW;
-		static unsigned short cycleCounter = 0;
-
-		if (++cycleCounter == 1000) {
-			cycleCounter = 0;
-			if (ledState)
-				ledState = LOW;
-			else
-				ledState = HIGH;
-		}
-
-		digitalWrite(13, ledState);
-	#endif
 }
 
 void setSingleClickHandler(ButtonId button, void (*callback)(void))

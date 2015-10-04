@@ -1,9 +1,8 @@
 #include <Arduino.h>
 #include "menu.h"
-#include "../global.h"
 #include "../config.h"
+#include "../displays.h"
 #include "../events.h"
-#include "../scrolling.h"
 
 static byte menuSelection;
 static byte submenuSelection; // 0 if not in a submenu
@@ -122,6 +121,8 @@ void menu(void)
 
 void showMenu(void)
 {
+	clearDisplays();
+
 	setSingleClickHandler(PLAYER1_LEFT, left);
 	setSingleClickHandler(PLAYER2_LEFT, left);
 	setSingleClickHandler(PLAYER1_RIGHT, right);

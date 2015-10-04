@@ -1,15 +1,16 @@
 #include <Arduino.h>
-#include "screensaver.h"
-#include "global.h"
 #include "config.h"
+#include "displays.h"
 #include "events.h"
+#include "screensaver.h"
 #include "apps/menu.h"
+
+bool displayingScreensaver = false;
+unsigned short screensaverDelay = DELAY_BEFORE_SCREENSAVER_IN_MENU * 1000;
 
 static TimerId displayUpdateTimer;
 static TimerId lcdUpdateTimer;
 static byte y, x;
-bool displayingScreensaver = false;
-unsigned short screensaverDelay = DELAY_BEFORE_SCREENSAVER_IN_MENU * 1000;
 
 static void displayUpdate(void)
 {

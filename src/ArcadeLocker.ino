@@ -1,6 +1,6 @@
 #include <Arduino.h>
-#include "global.h"
 #include "config.h"
+#include "displays.h"
 #include "events.h"
 #include "time.h"
 #include "apps/menu.h"
@@ -10,27 +10,12 @@
 	#include "time.h"
 #endif
 
-LedControl matrix = LedControl(MAX_CHIP_DIN_PIN, MAX_CHIP_CLK_PIN, MAX_CHIP_LOAD_PIN, 1);
-LiquidCrystal_I2C lcd(0x27, 16, 2);
-
-byte downArrow[] = {
-B00100,
-B00100,
-B00100,
-B00100,
-B00100,
-B11111,
-B01110,
-B00100};
-
 
 void setup() {
 	#ifdef SERIAL_DEBUG
 		Serial.begin(9600);
 		Serial.print("Ready");
 	#endif
-
-	Wire.begin();
 
 	#ifdef RTC
 		timeInit();
@@ -44,20 +29,27 @@ void setup() {
 	for (i = 0; i < 5; i++)
 		pinMode(buttonsPins[i], INPUT_PULLUP);
 
-	// LED Matrix
-	matrix.shutdown(0, false);
-	matrix.setIntensity(0, DEFAULT_MATRIX_INTENSITY);
-
-	// LCD
-	lcd.createChar(0, downArrow);
-	lcd.begin(16, 2);
-	clearDisplays();
-
-	// App start
+	displaysInit();
 	eventsInit();
 	showMenu();
 }
 
 void loop() {
 	eventsUpdateLoop();
+
+	#ifdef DEBUG
+		// Internal LED change state every 1000 loop cycle
+		static bool ledState = LOW;
+		static unsigned short cycleCounter = 0;
+
+		if (++cycleCounter == 1000) {
+			cycleCounter = 0;
+			if (ledState)
+				ledState = LOW;
+			else
+				ledState = HIGH;
+		}
+
+		digitalWrite(13, ledState);
+	#endif
 }
