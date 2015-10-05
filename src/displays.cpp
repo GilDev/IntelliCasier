@@ -870,3 +870,8 @@ void clearDisplays(void)
 	lcd.noAutoscroll();
 	lcd.clear();
 }
+
+void clearLcdLine(byte line)
+{
+	printLcd(0, line, F("                "));
+}

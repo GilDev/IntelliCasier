@@ -9,7 +9,7 @@ static byte submenuSelection; // 0 if not in a submenu
 
 static void displayMenu(void)
 {
-	clearDisplays();
+	clearLcdLine(0);
 
 	if (submenuSelection == 0) {
 		switch (menuSelection) {
@@ -111,6 +111,8 @@ void right(void)
 
 void menu(void)
 {
+	clearLcdLine(1);
+
 	if (submenuSelection == 0)
 		submenuSelection = 1;
 	else

@@ -111,8 +111,8 @@ void eventsUpdateLoop(void)
 	// of active timers instead of testing all timers
 	for (i = 0; i < NUMBER_OF_TIMER_EVENTS; i++) { 
 		if (timers[i].activated && actualTime >= timers[i].activationTime) {
-			timers[i].activationTime = actualTime + timers[i].delay;
-			(*timers[i].callback)();
+			//timers[i].activationTime = actualTime + timers[i].delay;
+			//(*timers[i].callback)();
 			#ifdef SERIAL_DEBUG
 				Serial.print("Timer: ");
 				Serial.println(i);
