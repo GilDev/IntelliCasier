@@ -47,7 +47,7 @@ void exitScreensaver(void)
 
 void showScreensaver(void)
 {
-	#ifdef SERIAL_DEBUG
+	#ifdef DEBUG
 		Serial.print("Displaying screensaver\n");
 	#endif
 

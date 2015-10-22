@@ -2,7 +2,7 @@
 #define CONFIG_H
 
 #define DEBUG
-#define SERIAL_DEBUG // Only define if DEBUG is defined
+#define SERIAL_BAUD 9600
 
 #define RTC // Only define if you use a DS3231 RTC
 

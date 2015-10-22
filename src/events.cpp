@@ -29,12 +29,11 @@ static struct {
 	void (*callback)();
 } timers[NUMBER_OF_TIMER_EVENTS];
 
-static byte i; // Change type if NUMBER_OF_TIMER_EVENTS > 256
-
 unsigned long screensaverTimer = millis();
 
 void eventsInit(void)
 {
+	byte i;
 	for (i = 0; i < NUMBER_OF_TIMER_EVENTS; i++)
 		timers[i].activated = false;
 }
@@ -44,6 +43,7 @@ void eventsUpdateLoop(void)
 	unsigned long actualTime;
 
 	// INPUTS
+	byte i;
 	for (i = 0; i < 5; i++) {
 		actualTime = millis();
 
@@ -62,7 +62,7 @@ void eventsUpdateLoop(void)
 				if (actualTime - buttons[i].lastActivation > DEBOUNCE_TIME) {
 					buttons[i].lastActivation = actualTime;
 					if (state == !BUTTON_OPEN) {
-						#ifdef SERIAL_DEBUG
+						#ifdef DEBUG
 							Serial.print("Single click: ");
 							Serial.println(i);
 						#endif
@@ -78,7 +78,7 @@ void eventsUpdateLoop(void)
 					buttons[i].lastActivation = actualTime;
 				} else {
 					if (!buttons[i].clicked && actualTime - buttons[i].lastActivation > buttons[i].delay) {
-						#ifdef SERIAL_DEBUG
+						#ifdef DEBUG
 							Serial.print("Hold click: ");
 							Serial.println(i);
 						#endif
@@ -94,7 +94,7 @@ void eventsUpdateLoop(void)
 		} else {
 			if (state == !BUTTON_OPEN) {
 				if (actualTime - buttons[i].lastActivation > buttons[i].delay) {
-					#ifdef SERIAL_DEBUG
+					#ifdef DEBUG
 						Serial.print("Repeat click: ");
 						Serial.println(i);
 					#endif
@@ -111,9 +111,9 @@ void eventsUpdateLoop(void)
 	// of active timers instead of testing all timers
 	for (i = 0; i < NUMBER_OF_TIMER_EVENTS; i++) { 
 		if (timers[i].activated && actualTime >= timers[i].activationTime) {
-			//timers[i].activationTime = actualTime + timers[i].delay;
-			//(*timers[i].callback)();
-			#ifdef SERIAL_DEBUG
+			timers[i].activationTime = actualTime + timers[i].delay;
+			(*timers[i].callback)();
+			#ifdef DEBUG
 				Serial.print("Timer: ");
 				Serial.println(i);
 			#endif
@@ -121,6 +121,7 @@ void eventsUpdateLoop(void)
 	}
 }
 
+// BUTTONS
 void setSingleClickHandler(ButtonId button, void (*callback)(void))
 {
 	buttons[button].type = SINGLE;
@@ -146,9 +147,10 @@ void setRepeatClickHandler(ButtonId button, unsigned short delay, void (*callbac
 	buttons[button].callback = callback;
 }
 
-
+// TIMERS
 TimerId registerTimerEvent(unsigned short delay, void (*callback)(void))
 {
+	byte i;
 	for (i = 0; i < NUMBER_OF_TIMER_EVENTS; i++)
 		if (!timers[i].activated) {
 			timers[i].activated = true;

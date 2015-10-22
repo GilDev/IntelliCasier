@@ -809,8 +809,7 @@ static void scroll(void)
 
 void newScroll(char *text)
 {
-	if (timerActivated)
-		cancelTimerEvent(scrollingTimerId);
+	stopScrolling();
 
 	matrix.clearDisplay(0);
 	scrollingText = text;

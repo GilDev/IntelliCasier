@@ -12,8 +12,8 @@
 
 
 void setup() {
-	#ifdef SERIAL_DEBUG
-		Serial.begin(9600);
+	#ifdef DEBUG
+		Serial.begin(SERIAL_BAUD);
 		Serial.print("Ready");
 	#endif
 
