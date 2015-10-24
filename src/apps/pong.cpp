@@ -85,10 +85,10 @@ static void initGame(void)
 
 void showPong(void)
 {
-	setRepeatClickHandler(PLAYER1_LEFT, 100, up1);
-	setRepeatClickHandler(PLAYER1_RIGHT, 100, down1);
-	setRepeatClickHandler(PLAYER2_LEFT, 100, up2);
-	setRepeatClickHandler(PLAYER2_RIGHT, 100, down2);
+	setRepeatClickHandler(PLAYER1_LEFT, DELAY_BETWEEN_PADDLE_MOVES, up1);
+	setRepeatClickHandler(PLAYER1_RIGHT, DELAY_BETWEEN_PADDLE_MOVES, down1);
+	setRepeatClickHandler(PLAYER2_LEFT, DELAY_BETWEEN_PADDLE_MOVES, up2);
+	setRepeatClickHandler(PLAYER2_RIGHT, DELAY_BETWEEN_PADDLE_MOVES, down2);
 	setSingleClickHandler(MENU, menu);
 
 	initGame();

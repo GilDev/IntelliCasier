@@ -27,7 +27,7 @@ void setup() {
 	// Inputs
 	byte i;
 	for (i = 0; i < 5; i++)
-		pinMode(buttonsPins[i], INPUT_PULLUP);
+		pinMode(buttonsPins[i], USE_INTERNAL_PULLUPS ? INPUT_PULLUP : INPUT);
 
 	displaysInit();
 	eventsInit();
