@@ -60,6 +60,7 @@ void showScreensaver(void)
 	setSingleClickHandler(MENU, exitScreensaver);
 
 	clearDisplays();
+	cancelAllTimerEvents();
 
 	matrix.setIntensity(0, SCREENSAVER_MATRIX_INTENSITY);
 	matrix.setRow(0, 0, 255);

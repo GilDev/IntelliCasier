@@ -21,5 +21,6 @@ void setRepeatClickHandler(ButtonId button, unsigned short delay, void (*callbac
 TimerId registerTimerEvent(unsigned short delay, void (*callback)(void));
 void rescheduleTimerEvent(TimerId id, unsigned short newDelay);
 void cancelTimerEvent(TimerId id);
+void cancelAllTimerEvents(void);
 
 #endif

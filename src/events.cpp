@@ -170,3 +170,10 @@ void cancelTimerEvent(TimerId id)
 {
 	timers[id].activated = false;
 }
+
+void cancelAllTimerEvents(void)
+{
+	byte i;
+	for (i = 0; i < NUMBER_OF_TIMER_EVENTS; i++)
+		timers[i].activated = false;
+}
