@@ -1,11 +1,30 @@
 #include <Arduino.h>
 #include "menu.h"
+#include "pong.h"
 #include "../config.h"
 #include "../displays.h"
 #include "../events.h"
 
 static byte menuSelection;
 static byte submenuSelection; // 0 if not in a submenu
+
+static void drawReturnIcon(void)
+{
+	byte returnIcon[8] = {
+		B00010000,
+		B00110000,
+		B01111100,
+		B00110010,
+		B00010010,
+		B01000010,
+		B00111100,
+		B00000000
+	};
+
+	byte i;
+	for (i = 0; i < 8; i++)
+		matrix.setRow(0, i, returnIcon[i]);
+}
 
 static void displayMenu(void)
 {
@@ -52,6 +71,12 @@ static void displayMenu(void)
 						printLcd(2, 1, "Jouer ");
 						lcd.write(0);
 						break;
+					case 3:
+						clearDisplays();
+						drawReturnIcon();
+						printLcd(4, 0, "Retour");
+						lcd.setCursor(8, 1);
+						lcd.write(0);
 				}
 				break;
 			case 1:
@@ -70,12 +95,18 @@ static void displayMenu(void)
 						printLcd(2, 1, "Jouer ");
 						lcd.write(0);
 						break;
+					case 3:
+						clearDisplays();
+						drawReturnIcon();
+						printLcd(4, 0, "Retour");
+						lcd.setCursor(8, 1);
+						lcd.write(0);
 				}
 		}
 	}
 }
 
-void left(void)
+static void left(void)
 {
 	if (submenuSelection == 0) {
 		if (menuSelection == 0)
@@ -84,7 +115,7 @@ void left(void)
 			menuSelection--;
 	} else {
 		if (submenuSelection == 1)
-			submenuSelection = 2;
+			submenuSelection = 3;
 		else
 			submenuSelection--;
 	}
@@ -92,7 +123,7 @@ void left(void)
 	displayMenu();
 }
 
-void right(void)
+static void right(void)
 {
 	if (submenuSelection == 0) {
 		if (menuSelection == 2)
@@ -100,7 +131,7 @@ void right(void)
 		else
 			menuSelection++;
 	} else {
-		if (submenuSelection == 2)
+		if (submenuSelection == 3)
 			submenuSelection = 1;
 		else
 			submenuSelection++;
@@ -109,14 +140,31 @@ void right(void)
 	displayMenu();
 }
 
-void menu(void)
+static void menu(void)
 {
-	clearLcdLine(1);
-
-	if (submenuSelection == 0)
+	if (submenuSelection == 0) {
 		submenuSelection = 1;
-	else
-		submenuSelection = 0;
+		clearLcdLine(1);
+	} else {
+		switch (menuSelection) {
+			case 0:
+				switch (submenuSelection) {
+					case 3:
+						submenuSelection = 0;
+				}
+				break;
+			case 1:
+				switch (submenuSelection) {
+					case 1:
+						clearDisplays();
+						showPong();
+						return;
+						break;
+					case 3:
+						submenuSelection = 0;
+				}
+		}
+	}
 
 	displayMenu();
 }
