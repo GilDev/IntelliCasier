@@ -12,6 +12,7 @@ void clearDisplays(void);
 
 void newScroll(char *text);
 void stopScrolling(void);
+void drawImage(byte *img);
 
 #define printLcd(x, y, text) lcd.setCursor(x, y); lcd.print(text);
 void clearLcdLine(byte line);

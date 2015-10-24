@@ -19,7 +19,7 @@ static byte frameBuffer[8];
 static TimerId scrollingTimerId;
 static byte timerActivated = false;
 
-static const PROGMEM byte font[][9] = { // [A-Z][a-z][0-9]
+static const PROGMEM byte font[][9] = { // [A-Z][a-z][0-9]. Ninth value specify character width
 // A
 {
 B010,
@@ -765,12 +765,6 @@ B0000,
 4
 }};
 
-static void matrixInit(void)
-{
-	matrix.shutdown(0, false);
-	matrix.setIntensity(0, DEFAULT_MATRIX_INTENSITY);
-}
-
 static void scroll(void)
 {
 	if (!printingEmptySpace && (x >= pgm_read_byte(&font[actualLetterId][8]) || scrollingText[c] == ' ' || scrollingText[c] == '\0')) {
@@ -826,6 +820,21 @@ void stopScrolling(void)
 		cancelTimerEvent(scrollingTimerId);
 		timerActivated = false;
 	}
+}
+
+void drawImage(byte *img)
+{
+	stopScrolling();
+
+	byte i;
+	for (i = 0; i < 8; i++)
+		matrix.setRow(0, i, img[i]);
+}
+
+static void matrixInit(void)
+{
+	matrix.shutdown(0, false);
+	matrix.setIntensity(0, DEFAULT_MATRIX_INTENSITY);
 }
 
 // LCD

@@ -8,23 +8,16 @@
 static byte menuSelection;
 static byte submenuSelection; // 0 if not in a submenu
 
-static void drawReturnIcon(void)
-{
-	byte returnIcon[8] = {
-		B00010000,
-		B00110000,
-		B01111100,
-		B00110010,
-		B00010010,
-		B01000010,
-		B00111100,
-		B00000000
-	};
-
-	byte i;
-	for (i = 0; i < 8; i++)
-		matrix.setRow(0, i, returnIcon[i]);
-}
+static byte returnIcon[8] = {
+	B00010000,
+	B00110000,
+	B01111100,
+	B00110010,
+	B00010010,
+	B01000010,
+	B00111100,
+	B00000000
+};
 
 static void displayMenu(void)
 {
@@ -73,7 +66,7 @@ static void displayMenu(void)
 						break;
 					case 3:
 						clearDisplays();
-						drawReturnIcon();
+						drawImage(returnIcon);
 						printLcd(4, 0, "Retour");
 						lcd.setCursor(8, 1);
 						lcd.write(0);
@@ -97,7 +90,7 @@ static void displayMenu(void)
 						break;
 					case 3:
 						clearDisplays();
-						drawReturnIcon();
+						drawImage(returnIcon);
 						printLcd(4, 0, "Retour");
 						lcd.setCursor(8, 1);
 						lcd.write(0);
