@@ -2,6 +2,7 @@
 #include "config.h"
 #include "events.h"
 #include "screensaver.h"
+#include "apps/menu.h"
 
 #define NUMBER_OF_TIMER_EVENTS 10
 
@@ -50,7 +51,7 @@ void eventsUpdateLoop(void)
 		bool state = digitalRead(buttonsPins[i]);
 
 		// SCREENSAVER
-		if (state == !BUTTON_OPEN) // When an action is made, reset screensaver launch delay
+		if (state == !BUTTON_OPEN) // When a button is pressed, reset screensaver launch delay
 			screensaverTimer = actualTime;
 		else if (!displayingScreensaver && actualTime - screensaverTimer > screensaverDelay) {
 			showScreensaver();

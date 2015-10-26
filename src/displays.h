@@ -10,7 +10,7 @@ extern LiquidCrystal_I2C lcd;
 void displaysInit(void);
 void clearDisplays(void);
 
-void newScroll(char *text);
+void newScroll(const char *text);
 void stopScrolling(void);
 void drawImage(byte *img);
 

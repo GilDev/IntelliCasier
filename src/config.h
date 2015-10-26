@@ -5,6 +5,8 @@
 #define DEBUG            // Activate serial messages & internal LED blinking every 1000 loop cycle
 #define SERIAL_BAUD 9600 // Serial communication speed
 
+#define LANG 1 // 0 = English, 1 = French
+
 #define RTC // Define if you have a DS3231 RTC
 
 #define USE_INTERNAL_PULLUPS true // Use the Arduino's builtin pullups on inputs

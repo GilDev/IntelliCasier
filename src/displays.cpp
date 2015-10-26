@@ -19,7 +19,7 @@ static byte frameBuffer[8];
 static TimerId scrollingTimerId;
 static byte timerActivated = false;
 
-static const PROGMEM byte font[][9] = { // [A-Z][a-z][0-9]. Ninth value specify character width
+static const byte font[][9] PROGMEM = { // [A-Z][a-z][0-9]. Ninth value specify character width
 // A
 {
 B010,
@@ -801,12 +801,12 @@ static void scroll(void)
 	}
 }
 
-void newScroll(char *text)
+void newScroll(const char *text)
 {
 	stopScrolling();
 
 	matrix.clearDisplay(0);
-	scrollingText = text;
+	scrollingText = (char *) text;
 	for (i = 0; i < 8; i++)
 		frameBuffer[i] = 0;
 	c = x = printingEmptySpace = 0;
@@ -854,8 +854,8 @@ static byte downArrow[] = {
 static void lcdInit(void)
 {
 	Wire.begin();
-	lcd.createChar(0, downArrow);
 	lcd.begin(16, 2);
+	lcd.createChar(0, downArrow);
 }
 
 // COMMON

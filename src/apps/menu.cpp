@@ -1,10 +1,12 @@
 #include <Arduino.h>
+#include <avr/pgmspace.h>
 #include "menu.h"
 #include "pong.h"
 #include "../config.h"
 #include "../displays.h"
 #include "../events.h"
 #include "../screensaver.h"
+#include "../localization.h"
 
 static void exitMenu(void);
 
@@ -29,24 +31,27 @@ static void displayMenu(void)
 	if (submenuSelection == 0) {
 		switch (menuSelection) {
 			case 0:
-				static char joueur1[] = "1 joueur";
-				newScroll(joueur1);
-				printLcd(8 - (sizeof joueur1) / 2, 0, joueur1);
-				printLcd(0, 1, "Valider ");
+				newScroll(strings[GAMES_1_PLAYER]);
+				printLcd(8 - strlen(strings[GAMES_1_PLAYER]) / 2, 0, strings[GAMES_1_PLAYER]);
+				printLcd(7 - strlen(strings[CONFIRM]), 1, strings[CONFIRM]);
+				// Print arrow
+				lcd.setCursor(8, 1);
 				lcd.write(0);
 				break;
 			case 1:
-				static char joueurs2[] = "2 joueurs";
-				newScroll(joueurs2);
-				printLcd(8 - (sizeof joueurs2) / 2, 0, joueurs2);
-				printLcd(0, 1, "Valider ");
+				newScroll(strings[GAMES_2_PLAYERS]);
+				printLcd(8 - strlen(strings[GAMES_2_PLAYERS]) / 2, 0, strings[GAMES_2_PLAYERS]);
+				printLcd(7 - strlen(strings[CONFIRM]), 1, strings[CONFIRM]);
+				// Print arrow
+				lcd.setCursor(8, 1);
 				lcd.write(0);
 				break;
-			default:
-				static char aPropos[] = "A propos";
-				newScroll(aPropos);
-				printLcd(8 - (sizeof aPropos) / 2, 0, aPropos);
-				printLcd(0, 1, "Valider ");
+			case 2:
+				newScroll(strings[ABOUT]);
+				printLcd(8 - strlen(strings[ABOUT]) / 2, 0, strings[ABOUT]);
+				printLcd(7 - strlen(strings[CONFIRM]), 1, strings[CONFIRM]);
+				// Print arrow
+				lcd.setCursor(8, 1);
 				lcd.write(0);
 		}
 	} else {
@@ -54,23 +59,25 @@ static void displayMenu(void)
 			case 0:
 				switch (submenuSelection) {
 					case 1:
-						static char course[] = "Course";
-						newScroll(course);
-						printLcd(8 - (sizeof course) / 2, 0, course);
-						printLcd(2, 1, "Jouer ");
+						newScroll(strings[SNAKE]);
+						printLcd(8 - strlen(strings[SNAKE]) / 2, 0, strings[SNAKE]);
+						printLcd(7 - strlen(strings[PLAY]), 1, strings[PLAY]);
+						// Print arrow
+						lcd.setCursor(8, 1);
 						lcd.write(0);
 						break;
 					case 2:
-						static char snake[] = "Snake";
-						newScroll(snake);
-						printLcd(8 - (sizeof snake) / 2, 0, snake);
-						printLcd(2, 1, "Jouer ");
+						newScroll(strings[RACE]);
+						printLcd(8 - strlen(strings[RACE]) / 2, 0, strings[RACE]);
+						printLcd(7 - strlen(strings[PLAY]), 1, strings[PLAY]);
+						// Print arrow
+						lcd.setCursor(8, 1);
 						lcd.write(0);
 						break;
 					case 3:
-						clearDisplays();
 						drawImage(returnIcon);
-						printLcd(4, 0, "Retour");
+						printLcd(8 - strlen(strings[BACK]) / 2, 0, strings[BACK]);
+						// Print arrow
 						lcd.setCursor(8, 1);
 						lcd.write(0);
 				}
@@ -78,23 +85,25 @@ static void displayMenu(void)
 			case 1:
 				switch(submenuSelection) {
 					case 1:
-						static char pong[] = "Pong";
-						newScroll(pong);
-						printLcd(8 - (sizeof pong) / 2, 0, pong);
-						printLcd(2, 1, "Jouer ");
+						newScroll(strings[PONG]);
+						printLcd(8 - strlen(strings[PONG]) / 2, 0, strings[PONG]);
+						printLcd(7 - strlen(strings[PLAY]), 1, strings[PLAY]);
+						// Print arrow
+						lcd.setCursor(8, 1);
 						lcd.write(0);
 						break;
 					case 2:
-						static char tron[] = "Tron";
-						newScroll(tron);
-						printLcd(8 - (sizeof tron) / 2, 0, tron);
-						printLcd(2, 1, "Jouer ");
+						newScroll(strings[TRON]);
+						printLcd(8 - strlen(strings[TRON]) / 2, 0, strings[TRON]);
+						printLcd(7 - strlen(strings[PLAY]), 1, strings[PLAY]);
+						// Print arrow
+						lcd.setCursor(8, 1);
 						lcd.write(0);
 						break;
 					case 3:
-						clearDisplays();
 						drawImage(returnIcon);
-						printLcd(4, 0, "Retour");
+						printLcd(8 - strlen(strings[BACK]) / 2, 0, strings[BACK]);
+						// Print arrow
 						lcd.setCursor(8, 1);
 						lcd.write(0);
 				}
@@ -138,31 +147,33 @@ static void right(void)
 
 static void menu(void)
 {
-	if (submenuSelection == 0) {
+	if (submenuSelection == 0) { // Entering submenu
 		submenuSelection = 1;
 		clearLcdLine(1);
+		displayMenu();
 	} else {
-		switch (menuSelection) {
-			case 0:
-				switch (submenuSelection) {
-					case 3:
-						submenuSelection = 0;
-				}
-				break;
-			case 1:
-				switch (submenuSelection) {
-					case 1:
-						exitMenu();
-						showPong();
-						return;
-						break;
-					case 3:
-						submenuSelection = 0;
-				}
+		// "Return" menu options
+		if (menuSelection == 0 && submenuSelection == 3 ||
+			menuSelection == 1 && submenuSelection == 3) {
+			submenuSelection = 0;
+			displayMenu();
+		} else { // App launch
+			exitMenu();
+			switch (menuSelection) {
+				case 0: // 1 player games
+					switch (submenuSelection) {
+						
+					}
+					break;
+				case 1: // 2 players games
+					switch (submenuSelection) {
+						case 1:
+							showPong();
+							break;
+					}
+			}
 		}
 	}
-
-	displayMenu();
 }
 
 void showMenu(void)

@@ -22,7 +22,8 @@ Features
     * Tron/Snake
   * About screen with hidden option menu **(not currently implemented)**
 * Event-driven software
-* Screensaver
+* Multi-languages interface, easily localizable
+* Screensaver with delay depending on context
 * High-scores logging **(not currently implemented)**
 * Sounds **(not currently implemented)**
 * Alarm when opening locker without pressing a predefined sequence of buttons **(not currently implemented)**
