@@ -6,7 +6,7 @@
 #include "apps/menu.h"
 
 bool displayingScreensaver = false;
-unsigned short screensaverDelay = DELAY_BEFORE_SCREENSAVER_IN_MENU * 1000;
+unsigned short screensaverDelay;
 
 static TimerId displayUpdateTimer;
 static TimerId lcdUpdateTimer;

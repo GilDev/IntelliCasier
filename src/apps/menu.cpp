@@ -4,6 +4,9 @@
 #include "../config.h"
 #include "../displays.h"
 #include "../events.h"
+#include "../screensaver.h"
+
+static void exitMenu(void);
 
 static byte menuSelection;
 static byte submenuSelection; // 0 if not in a submenu
@@ -149,7 +152,7 @@ static void menu(void)
 			case 1:
 				switch (submenuSelection) {
 					case 1:
-						clearDisplays();
+						exitMenu();
 						showPong();
 						return;
 						break;
@@ -172,8 +175,15 @@ void showMenu(void)
 	setSingleClickHandler(PLAYER2_RIGHT, right);
 	setSingleClickHandler(MENU, menu);
 
+	screensaverDelay = DELAY_BEFORE_SCREENSAVER_IN_MENU * 1000;
 	menuSelection = 0;
 	submenuSelection = 0;
 
 	displayMenu();
+}
+
+static void exitMenu(void)
+{
+	clearDisplays();
+	screensaverDelay = DELAY_BEFORE_SCREENSAVER_IN_APP * 1000;
 }

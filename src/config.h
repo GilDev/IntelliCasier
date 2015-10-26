@@ -12,7 +12,7 @@
 #define DEBOUNCE_TIME 10          // Delay where no input can change after changing state
 
 #define DELAY_BEFORE_SCREENSAVER_IN_MENU 10 // In seconds
-#define DELAY_BEFORE_SCREENSAVER_IN_GAME 30 // Cancel game. In seconds
+#define DELAY_BEFORE_SCREENSAVER_IN_APP  30 // Cancel game. In seconds
 
 #define MAX_CHIP_DIN_PIN  2
 #define MAX_CHIP_CLK_PIN  4
