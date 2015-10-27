@@ -31,16 +31,16 @@ static void displayMenu(void)
 	if (submenuSelection == 0) {
 		switch (menuSelection) {
 			case 0:
-				newScroll(strings[GAMES_1_PLAYER]);
-				printLcd(8 - strlen(strings[GAMES_1_PLAYER]) / 2, 0, strings[GAMES_1_PLAYER]);
+				newScroll(strings[GAMES_1_PLAYER_MATRIX]);
+				printLcd(8 - strlen(strings[GAMES_1_PLAYER_LCD]) / 2, 0, strings[GAMES_1_PLAYER_LCD]);
 				printLcd(7 - strlen(strings[CONFIRM]), 1, strings[CONFIRM]);
 				// Print arrow
 				lcd.setCursor(8, 1);
 				lcd.write(0);
 				break;
 			case 1:
-				newScroll(strings[GAMES_2_PLAYERS]);
-				printLcd(8 - strlen(strings[GAMES_2_PLAYERS]) / 2, 0, strings[GAMES_2_PLAYERS]);
+				newScroll(strings[GAMES_2_PLAYERS_MATRIX]);
+				printLcd(8 - strlen(strings[GAMES_2_PLAYERS_LCD]) / 2, 0, strings[GAMES_2_PLAYERS_LCD]);
 				printLcd(7 - strlen(strings[CONFIRM]), 1, strings[CONFIRM]);
 				// Print arrow
 				lcd.setCursor(8, 1);
@@ -149,13 +149,14 @@ static void menu(void)
 {
 	if (submenuSelection == 0) { // Entering submenu
 		submenuSelection = 1;
-		clearLcdLine(1);
+		printLcd(0, 1, F("        "));
 		displayMenu();
 	} else {
 		// "Return" menu options
 		if (menuSelection == 0 && submenuSelection == 3 ||
 			menuSelection == 1 && submenuSelection == 3) {
 			submenuSelection = 0;
+			printLcd(0, 1, F("        "));
 			displayMenu();
 		} else { // App launch
 			exitMenu();
