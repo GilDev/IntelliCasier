@@ -10,11 +10,13 @@ extern LiquidCrystal_I2C lcd;
 void displaysInit(void);
 void clearDisplays(void);
 
-void newScroll(const char *text);
-void stopScrolling(void);
+void newMatrixScroll(const char *text);
+void stopMatrixScroll(void);
 void drawImage(byte *img);
 
 #define printLcd(x, y, text) lcd.setCursor(x, y); lcd.print(text);
 void clearLcdLine(byte line);
+void newLcdScroll(const char *text, byte line, unsigned short speed);
+void stopLcdScroll(byte line);
 
 #endif

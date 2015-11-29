@@ -13,7 +13,7 @@ static struct {
 	signed char yDir:2;
 } ball;
 
-static void updateBall(void)
+static void updateBall(byte data)
 {
 	matrix.setLed(0, ball.y, ball.x, false);
 
@@ -35,7 +35,7 @@ static void printScore(void)
 
 static byte player1Y, player2Y;
 
-static void up1(void)
+static void up1(byte data)
 {
 	if (player1Y > 0) {
 		matrix.setLed(0, player1Y + 1, 0, false);
@@ -43,7 +43,7 @@ static void up1(void)
 	}
 }
 
-static void down1(void)
+static void down1(byte data)
 {
 	if (player1Y < 6) {
 		matrix.setLed(0, player1Y, 0, false);
@@ -51,7 +51,7 @@ static void down1(void)
 	}
 }
 
-static void up2(void)
+static void up2(byte data)
 {
 	if (player2Y > 0) {
 		matrix.setLed(0, player2Y + 1, 7, false);
@@ -59,7 +59,7 @@ static void up2(void)
 	}
 }
 
-static void down2(void)
+static void down2(byte data)
 {
 	if (player2Y < 6) {
 		matrix.setLed(0, player2Y, 7, false);
@@ -67,7 +67,7 @@ static void down2(void)
 	}
 }
 
-static void menu(void)
+static void menu(byte data)
 {
 	cancelTimerEvent(updateBallTimer);
 	showMenu();
@@ -80,16 +80,16 @@ static void initGame(void)
 	ball.xDir = ball.yDir = 1;
 	player1Y = player2Y = 3;
 
-	updateBallTimer = registerTimerEvent(500, updateBall);
+	updateBallTimer = registerTimerEvent(500, updateBall, 0);
 }
 
 void showPong(void)
 {
-	setRepeatClickHandler(PLAYER1_LEFT, DELAY_BETWEEN_PADDLE_MOVES, up1);
-	setRepeatClickHandler(PLAYER1_RIGHT, DELAY_BETWEEN_PADDLE_MOVES, down1);
-	setRepeatClickHandler(PLAYER2_LEFT, DELAY_BETWEEN_PADDLE_MOVES, up2);
-	setRepeatClickHandler(PLAYER2_RIGHT, DELAY_BETWEEN_PADDLE_MOVES, down2);
-	setSingleClickHandler(MENU, menu);
+	setRepeatClickHandler(PLAYER1_LEFT, DELAY_BETWEEN_PADDLE_MOVES, up1, 0);
+	setRepeatClickHandler(PLAYER1_RIGHT, DELAY_BETWEEN_PADDLE_MOVES, down1, 0);
+	setRepeatClickHandler(PLAYER2_LEFT, DELAY_BETWEEN_PADDLE_MOVES, up2, 0);
+	setRepeatClickHandler(PLAYER2_RIGHT, DELAY_BETWEEN_PADDLE_MOVES, down2, 0);
+	setSingleClickHandler(MENU, menu, 0);
 
 	initGame();
 }

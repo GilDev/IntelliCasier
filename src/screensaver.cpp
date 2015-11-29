@@ -12,7 +12,7 @@ static TimerId displayUpdateTimer;
 static TimerId lcdUpdateTimer;
 static byte y, x;
 
-static void displayUpdate(void)
+static void displayUpdate(byte data)
 {
 	matrix.setLed(0, y, x, false);
 	if (++y == 8) {
@@ -22,7 +22,7 @@ static void displayUpdate(void)
 	matrix.setLed(0, y, x, true);
 }
 
-static void lcdUpdate(void)
+static void lcdUpdate(byte data)
 {
 	static bool displaying = false;
 
@@ -35,7 +35,7 @@ static void lcdUpdate(void)
 	}
 }
 
-void exitScreensaver(void)
+void exitScreensaver(byte data)
 {
 	cancelTimerEvent(displayUpdateTimer);
 	cancelTimerEvent(lcdUpdateTimer);
@@ -53,11 +53,11 @@ void showScreensaver(void)
 
 	displayingScreensaver = true;
 
-	setSingleClickHandler(PLAYER1_LEFT, exitScreensaver);
-	setSingleClickHandler(PLAYER1_RIGHT, exitScreensaver);
-	setSingleClickHandler(PLAYER2_LEFT, exitScreensaver);
-	setSingleClickHandler(PLAYER2_RIGHT, exitScreensaver);
-	setSingleClickHandler(MENU, exitScreensaver);
+	setSingleClickHandler(PLAYER1_LEFT, exitScreensaver, 0);
+	setSingleClickHandler(PLAYER1_RIGHT, exitScreensaver, 0);
+	setSingleClickHandler(PLAYER2_LEFT, exitScreensaver, 0);
+	setSingleClickHandler(PLAYER2_RIGHT, exitScreensaver, 0);
+	setSingleClickHandler(MENU, exitScreensaver, 0);
 
 	clearDisplays();
 	cancelAllTimerEvents();
@@ -69,6 +69,6 @@ void showScreensaver(void)
 
 	printLcd(5, 0, "ARCADE");
 
-	displayUpdateTimer = registerTimerEvent(50, displayUpdate);
-	lcdUpdateTimer = registerTimerEvent(500, lcdUpdate);
+	displayUpdateTimer = registerTimerEvent(50, displayUpdate, 0);
+	lcdUpdateTimer = registerTimerEvent(500, lcdUpdate, 0);
 }

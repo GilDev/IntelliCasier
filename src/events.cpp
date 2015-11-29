@@ -19,7 +19,8 @@ static struct {
 	byte clicked:1;               // True when HOLD trigger has occured
 	unsigned short delay;         // Used with HOLD and REPEAT click types
 	unsigned long lastActivation; // Used with SINGLE click type to avoid bouncing inputs
-	void (*callback)();           // Callback to call when input triggers
+	void (*callback)(byte data); // Callback to call when input triggers
+	byte data;           // Data to give to the callback. Could be changed to a pointer to void?
 } buttons[5];
 
 // TIMER EVENTS
@@ -27,7 +28,8 @@ static struct {
 	byte activated;
 	unsigned int delay;
 	unsigned long activationTime;
-	void (*callback)();
+	void (*callback)(byte data);
+	byte data;
 } timers[NUMBER_OF_TIMER_EVENTS];
 
 unsigned long screensaverTimer = millis();
@@ -67,7 +69,7 @@ void eventsUpdateLoop(void)
 							Serial.print("Single click: ");
 							Serial.println(i);
 						#endif
-						(*buttons[i].callback)();
+						(*buttons[i].callback)(buttons[i].data);
 					}
 				}
 			}
@@ -84,7 +86,7 @@ void eventsUpdateLoop(void)
 							Serial.println(i);
 						#endif
 						buttons[i].clicked = true;
-						(*buttons[i].callback)();
+						(*buttons[i].callback)(buttons[i].data);
 					}
 				}
 			} else {
@@ -100,7 +102,7 @@ void eventsUpdateLoop(void)
 						Serial.println(i);
 					#endif
 					buttons[i].lastActivation = actualTime;
-					(*buttons[i].callback)();
+					(*buttons[i].callback)(buttons[i].data);
 				}
 			}
 		}
@@ -113,43 +115,46 @@ void eventsUpdateLoop(void)
 	for (i = 0; i < NUMBER_OF_TIMER_EVENTS; i++) { 
 		if (timers[i].activated && actualTime >= timers[i].activationTime) {
 			timers[i].activationTime = actualTime + timers[i].delay;
-			(*timers[i].callback)();
 			#ifdef DEBUG
 				Serial.print("Timer: ");
 				Serial.println(i);
 			#endif
+			(*timers[i].callback)(timers[i].data);
 		}
 	}
 }
 
 // BUTTONS
-void setSingleClickHandler(ButtonId button, void (*callback)(void))
+void setSingleClickHandler(ButtonId button, void (*callback)(byte data), byte data)
 {
 	buttons[button].type = SINGLE;
 	buttons[button].oldState = BUTTON_OPEN;
 	buttons[button].lastActivation = 0;
 	buttons[button].callback = callback;
+	buttons[button].data = data;
 }
 
-void setHoldClickHandler(ButtonId button, unsigned short delay, void (*callback)(void))
+void setHoldClickHandler(ButtonId button, unsigned short delay, void (*callback)(byte data), byte data)
 {
 	buttons[button].type = HOLD;
 	buttons[button].oldState = BUTTON_OPEN;
 	buttons[button].delay = delay;
 	buttons[button].clicked = false;
 	buttons[button].callback = callback;
+	buttons[button].data = data;
 }
 
-void setRepeatClickHandler(ButtonId button, unsigned short delay, void (*callback)(void))
+void setRepeatClickHandler(ButtonId button, unsigned short delay, void (*callback)(byte data), byte data)
 {
 	buttons[button].type = REPEAT;
 	buttons[button].delay = delay;
 	buttons[button].lastActivation = 0;
 	buttons[button].callback = callback;
+	buttons[button].data = data;
 }
 
 // TIMERS
-TimerId registerTimerEvent(unsigned short delay, void (*callback)(void))
+TimerId registerTimerEvent(unsigned short delay, void (*callback)(byte data), byte data)
 {
 	byte i;
 	for (i = 0; i < NUMBER_OF_TIMER_EVENTS; i++)
@@ -158,6 +163,7 @@ TimerId registerTimerEvent(unsigned short delay, void (*callback)(void))
 			timers[i].delay = delay;
 			timers[i].activationTime = millis() + delay;
 			timers[i].callback = callback;
+			timers[i].data = data;
 			return i;
 		}
 }
@@ -169,7 +175,8 @@ void rescheduleTimerEvent(TimerId id, unsigned short newDelay)
 
 void cancelTimerEvent(TimerId id)
 {
-	timers[id].activated = false;
+	if (id >= 0)
+		timers[id].activated = false;
 }
 
 void cancelAllTimerEvents(void)

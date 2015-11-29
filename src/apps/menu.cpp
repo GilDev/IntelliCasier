@@ -31,7 +31,7 @@ static void displayMenu(void)
 	if (submenuSelection == 0) {
 		switch (menuSelection) {
 			case 0:
-				newScroll(strings[GAMES_1_PLAYER_MATRIX]);
+				newMatrixScroll(strings[GAMES_1_PLAYER_MATRIX]);
 				printLcd(8 - strlen(strings[GAMES_1_PLAYER_LCD]) / 2, 0, strings[GAMES_1_PLAYER_LCD]);
 				printLcd(7 - strlen(strings[CONFIRM]), 1, strings[CONFIRM]);
 				// Print arrow
@@ -39,15 +39,18 @@ static void displayMenu(void)
 				lcd.write(0);
 				break;
 			case 1:
-				newScroll(strings[GAMES_2_PLAYERS_MATRIX]);
+				stopMatrixScroll();
+				//newMatrixScroll(strings[GAMES_2_PLAYERS_MATRIX]);
 				printLcd(8 - strlen(strings[GAMES_2_PLAYERS_LCD]) / 2, 0, strings[GAMES_2_PLAYERS_LCD]);
 				printLcd(7 - strlen(strings[CONFIRM]), 1, strings[CONFIRM]);
 				// Print arrow
 				lcd.setCursor(8, 1);
 				lcd.write(0);
+				newLcdScroll("Hey nique ta race", 1, 250);
+				newLcdScroll("Hey toi !", 0, 500);
 				break;
 			case 2:
-				newScroll(strings[ABOUT]);
+				newMatrixScroll(strings[ABOUT]);
 				printLcd(8 - strlen(strings[ABOUT]) / 2, 0, strings[ABOUT]);
 				printLcd(7 - strlen(strings[CONFIRM]), 1, strings[CONFIRM]);
 				// Print arrow
@@ -59,7 +62,7 @@ static void displayMenu(void)
 			case 0:
 				switch (submenuSelection) {
 					case 1:
-						newScroll(strings[SNAKE]);
+						newMatrixScroll(strings[SNAKE]);
 						printLcd(8 - strlen(strings[SNAKE]) / 2, 0, strings[SNAKE]);
 						printLcd(7 - strlen(strings[PLAY]), 1, strings[PLAY]);
 						// Print arrow
@@ -67,7 +70,7 @@ static void displayMenu(void)
 						lcd.write(0);
 						break;
 					case 2:
-						newScroll(strings[RACE]);
+						newMatrixScroll(strings[RACE]);
 						printLcd(8 - strlen(strings[RACE]) / 2, 0, strings[RACE]);
 						printLcd(7 - strlen(strings[PLAY]), 1, strings[PLAY]);
 						// Print arrow
@@ -85,7 +88,7 @@ static void displayMenu(void)
 			case 1:
 				switch(submenuSelection) {
 					case 1:
-						newScroll(strings[PONG]);
+						newMatrixScroll(strings[PONG]);
 						printLcd(8 - strlen(strings[PONG]) / 2, 0, strings[PONG]);
 						printLcd(7 - strlen(strings[PLAY]), 1, strings[PLAY]);
 						// Print arrow
@@ -93,7 +96,7 @@ static void displayMenu(void)
 						lcd.write(0);
 						break;
 					case 2:
-						newScroll(strings[TRON]);
+						newMatrixScroll(strings[TRON]);
 						printLcd(8 - strlen(strings[TRON]) / 2, 0, strings[TRON]);
 						printLcd(7 - strlen(strings[PLAY]), 1, strings[PLAY]);
 						// Print arrow
@@ -111,7 +114,7 @@ static void displayMenu(void)
 	}
 }
 
-static void left(void)
+static void left(byte data)
 {
 	if (submenuSelection == 0) {
 		if (menuSelection == 0)
@@ -128,7 +131,7 @@ static void left(void)
 	displayMenu();
 }
 
-static void right(void)
+static void right(byte data)
 {
 	if (submenuSelection == 0) {
 		if (menuSelection == 2)
@@ -145,7 +148,7 @@ static void right(void)
 	displayMenu();
 }
 
-static void menu(void)
+static void menu(byte data)
 {
 	if (submenuSelection == 0) { // Entering submenu
 		submenuSelection = 1;
@@ -181,11 +184,11 @@ void showMenu(void)
 {
 	clearDisplays();
 
-	setSingleClickHandler(PLAYER1_LEFT, left);
-	setSingleClickHandler(PLAYER2_LEFT, left);
-	setSingleClickHandler(PLAYER1_RIGHT, right);
-	setSingleClickHandler(PLAYER2_RIGHT, right);
-	setSingleClickHandler(MENU, menu);
+	setSingleClickHandler(PLAYER1_LEFT, left, 0);
+	setSingleClickHandler(PLAYER2_LEFT, left, 0);
+	setSingleClickHandler(PLAYER1_RIGHT, right, 0);
+	setSingleClickHandler(PLAYER2_RIGHT, right, 0);
+	setSingleClickHandler(MENU, menu, 0);
 
 	screensaverDelay = DELAY_BEFORE_SCREENSAVER_IN_MENU * 1000;
 	menuSelection = 0;

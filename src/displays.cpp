@@ -5,19 +5,17 @@
 #include "events.h"
 
 // MATRIX
-#define actualLetterId ((scrollingText[c] >= 'a') ? scrollingText[c] - 'a' + 26 : (scrollingText[c] <= '9') ? scrollingText[c] - '0' + 26 * 2 : scrollingText[c] - 'A')
+#define actualLetterId ((scrollingMatrixText[c] >= 'a') ? scrollingMatrixText[c] - 'a' + 26 : (scrollingMatrixText[c] <= '9') ? scrollingMatrixText[c] - '0' + 26 * 2 : scrollingMatrixText[c] - 'A')
 
 LedControl matrix = LedControl(MAX_CHIP_DIN_PIN, MAX_CHIP_CLK_PIN, MAX_CHIP_LOAD_PIN, 1);
 
-static char *scrollingText;
+static char *scrollingMatrixText;
 static byte c;     // Character pointer
 static byte x;     // Character column pointer
 static byte printingEmptySpace = false; // True when printing an empty space
-static byte i;
 
 static byte frameBuffer[8];
-static TimerId scrollingTimerId;
-static byte timerActivated = false;
+static TimerId scrollingTimerId = -1;
 
 static const byte font[][9] PROGMEM = { // [A-Z][a-z][0-9]. Ninth value specify character width
 // A
@@ -765,10 +763,10 @@ B0000,
 4
 }};
 
-static void scroll(void)
+static void matrixScroll(byte data)
 {
-	if (!printingEmptySpace && (x >= pgm_read_byte(&font[actualLetterId][8]) || scrollingText[c] == ' ' || scrollingText[c] == '\0')) {
-		switch (scrollingText[++c]) {
+	if (!printingEmptySpace && (x >= pgm_read_byte(&font[actualLetterId][8]) || scrollingMatrixText[c] == ' ' || scrollingMatrixText[c] == '\0')) {
+		switch (scrollingMatrixText[++c]) {
 			case ' ':
 				x = EMPTY_SPACE_SIZE;
 				c++;
@@ -784,6 +782,7 @@ static void scroll(void)
 		printingEmptySpace = true;
 	}
 
+	byte i;
 	if (printingEmptySpace) {
 		for (i = 0; i < 8; i++) {
 			frameBuffer[i] <<= 1;
@@ -801,30 +800,29 @@ static void scroll(void)
 	}
 }
 
-void newScroll(const char *text)
+void newMatrixScroll(const char *text)
 {
-	stopScrolling();
-
+	stopMatrixScroll();
 	matrix.clearDisplay(0);
-	scrollingText = (char *) text;
+
+	scrollingMatrixText = (char *) text;
+	byte i;
 	for (i = 0; i < 8; i++)
 		frameBuffer[i] = 0;
 	c = x = printingEmptySpace = 0;
-	scrollingTimerId = registerTimerEvent(TEXT_SCROLLING_SPEED, scroll);
-	timerActivated = true;
+
+	scrollingTimerId = registerTimerEvent(TEXT_SCROLLING_SPEED, matrixScroll, 0);
 }
 
-void stopScrolling(void)
+void stopMatrixScroll(void)
 {
-	if (timerActivated) {
-		cancelTimerEvent(scrollingTimerId);
-		timerActivated = false;
-	}
+	cancelTimerEvent(scrollingTimerId);
+	scrollingTimerId = -1;
 }
 
 void drawImage(byte *img)
 {
-	stopScrolling();
+	stopMatrixScroll();
 
 	byte i;
 	for (i = 0; i < 8; i++)
@@ -840,6 +838,10 @@ static void matrixInit(void)
 // LCD
 LiquidCrystal_I2C lcd(0x27, 16, 2);
 
+static TimerId lcdTimers[2] = {-1, -1};
+static char *scrollingLcdTexts[2];
+static signed char startPos[2], stopPos[2];
+
 static byte downArrow[] = {
 	B00100,
 	B00100,
@@ -851,6 +853,50 @@ static byte downArrow[] = {
 	B00100
 };
 
+static void lcdScroll(unsigned char line)
+{
+	clearLcdLine(line);
+
+	startPos[line]--;
+	stopPos[line]--;
+
+	if (stopPos[line] == 0) {
+		startPos[line] = 16;
+		stopPos[line] = 16 + strlen(scrollingLcdTexts[line]);
+	}
+
+	byte start = (startPos[line] < 0) ? 0  : startPos[line];
+	byte end = (stopPos[line] > 16) ? 16 : stopPos[line];
+	lcd.setCursor(start , line);
+
+	byte i;
+	for (i = start; i < end; i++)
+		lcd.write(scrollingLcdTexts[line][((startPos[line] >= 0) ? 0 : -startPos[line]) + i - start]);
+}
+
+void newLcdScroll(const char *text, byte line, unsigned short speed)
+{
+	stopLcdScroll(line);
+
+	scrollingLcdTexts[line] = (char *) text;
+	startPos[line] = 16;
+	stopPos[line]  = 16 + strlen(scrollingLcdTexts[line]);
+
+	lcdTimers[line] = registerTimerEvent(speed, lcdScroll, line);
+}
+
+void stopLcdScroll(byte line)
+{
+	clearLcdLine(line);
+	cancelTimerEvent(lcdTimers[line]);
+	lcdTimers[line] = -1;
+}
+
+void clearLcdLine(byte line)
+{
+	printLcd(0, line, F("                "));
+}
+
 static void lcdInit(void)
 {
 	Wire.begin();
@@ -859,17 +905,11 @@ static void lcdInit(void)
 }
 
 // COMMON
-void displaysInit(void)
-{
-	matrixInit();
-	lcdInit();
-}
-
 void clearDisplays(void)
 {
 	// LED Matrix
 	matrix.clearDisplay(0);
-	stopScrolling();
+	stopMatrixScroll();
 
 	// LCD display
 	lcd.backlight();
@@ -879,7 +919,8 @@ void clearDisplays(void)
 	lcd.clear();
 }
 
-void clearLcdLine(byte line)
+void displaysInit(void)
 {
-	printLcd(0, line, F("                "));
+	matrixInit();
+	lcdInit();
 }
