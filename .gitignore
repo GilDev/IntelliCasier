@@ -1,2 +1,3 @@
 .build*
 lib/.holder
+.DS_Store
