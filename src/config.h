@@ -20,7 +20,7 @@
 #define MAX_CHIP_CLK_PIN  4
 #define MAX_CHIP_LOAD_PIN 3
 
-const unsigned char buttonsPins[] = {
+static const unsigned char buttonsPins[] = {
 	5, // PLAYER1_LEFT
 	6, // PLAYER1_RIGHT
 	8, // PLAYER2_LEFT

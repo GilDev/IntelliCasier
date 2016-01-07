@@ -1,5 +1,6 @@
 #include <Arduino.h>
 #include "menu.h"
+#include "common.h"
 #include "../config.h"
 #include "../displays.h"
 #include "../events.h"
@@ -79,6 +80,10 @@ static void initGame(void)
 	ball.y = random(1, 7);
 	ball.xDir = ball.yDir = 1;
 	player1Y = player2Y = 3;
+
+	countdown();
+
+	clearDisplays();
 
 	updateBallTimer = registerTimerEvent(500, updateBall, 0);
 }

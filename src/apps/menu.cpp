@@ -40,14 +40,12 @@ static void displayMenu(void)
 				break;
 			case 1:
 				stopMatrixScroll();
-				//newMatrixScroll(strings[GAMES_2_PLAYERS_MATRIX]);
+				newMatrixScroll(strings[GAMES_2_PLAYERS_MATRIX]);
 				printLcd(8 - strlen(strings[GAMES_2_PLAYERS_LCD]) / 2, 0, strings[GAMES_2_PLAYERS_LCD]);
 				printLcd(7 - strlen(strings[CONFIRM]), 1, strings[CONFIRM]);
 				// Print arrow
 				lcd.setCursor(8, 1);
 				lcd.write(0);
-				newLcdScroll("Hey nique ta race", 1, 250);
-				newLcdScroll("Hey toi !", 0, 500);
 				break;
 			case 2:
 				newMatrixScroll(strings[ABOUT]);

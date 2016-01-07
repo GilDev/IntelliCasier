@@ -1,3 +1,6 @@
+#include "../config.h"
+
+#if (LANG == 0)
 const char *strings[] = {
 	"Confirm",
 	"Play",
@@ -10,5 +13,9 @@ const char *strings[] = {
 	"Race",
 	"Snake",
 	"Pong",
-	"Tron"
+	"Tron",
+	"Ready?",
+	"Set",
+	"Go!"
 };
+#endif

@@ -3,11 +3,7 @@
 
 #include "config.h"
 
-#if (LANG == 0)
-	#include "locales/en.h"
-#elif (LANG == 1)
-	#include "locales/fr.h"
-#endif
+extern const char *strings[];
 
 enum Strings {
 	CONFIRM,
@@ -21,7 +17,10 @@ enum Strings {
 	RACE,
 	SNAKE,
 	PONG,
-	TRON
+	TRON,
+	READY,
+	SET,
+	GO
 };
 
 #endif
