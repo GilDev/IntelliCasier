@@ -52,3 +52,10 @@ I currently use [Arturo](https://github.com/scottdarch/Arturo) to compile the sk
 * Copy all libraries in [`lib`](lib) in Arduino's `libraries` folder or use the Library Manager to install them (Arduino IDE >= 1.6.2))
 * Add `#include <LedControl.h>`, `#include <LiquidCrystal_I2C.h>` and `#include <Sodaq_3231>` at the top of [`src/ArcadeLocker.ino`](src/ArcadeLocker.ino)
 * Rename the [`src`](src) directory to `ArcadeLocker`
+
+
+Todo
+----
+
+* Better localization system (kind of ugly right now)
+* Events handling optimizations (loops)
