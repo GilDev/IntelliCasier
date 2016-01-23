@@ -811,7 +811,7 @@ void newMatrixScroll(const char *text)
 		frameBuffer[i] = 0;
 	c = x = printingEmptySpace = 0;
 
-	scrollingTimerId = registerTimerEvent(TEXT_SCROLLING_SPEED, matrixScroll, 0);
+	scrollingTimerId = registerTimerEvent(TEXT_SCROLLING_SPEED, matrixScroll, true, 0);
 }
 
 void stopMatrixScroll(void)
@@ -882,7 +882,7 @@ void newLcdScroll(const char *text, byte line, unsigned short speed)
 	startPos[line] = 16;
 	stopPos[line]  = 16 + strlen(scrollingLcdTexts[line]);
 
-	lcdTimers[line] = registerTimerEvent(speed, lcdScroll, line);
+	lcdTimers[line] = registerTimerEvent(speed, lcdScroll, true, line);
 }
 
 void stopLcdScroll(byte line)

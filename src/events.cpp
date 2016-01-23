@@ -25,7 +25,8 @@ static struct {
 
 // TIMER EVENTS
 static struct {
-	byte activated;
+	bool activated;
+	bool repeat;
 	unsigned int delay;
 	unsigned long activationTime;
 	void (*callback)(byte data);
@@ -114,12 +115,17 @@ void eventsUpdateLoop(void)
 	// of active timers instead of testing all timers
 	for (i = 0; i < NUMBER_OF_TIMER_EVENTS; i++) { 
 		if (timers[i].activated && actualTime >= timers[i].activationTime) {
-			timers[i].activationTime = actualTime + timers[i].delay;
+			if (timers[i].repeat)
+				timers[i].activationTime = actualTime + timers[i].delay;
+			else
+				timers[i].activated = false;
+
+			(*timers[i].callback)(timers[i].data);
+
 			#ifdef DEBUG
 				Serial.print("Timer: ");
 				Serial.println(i);
 			#endif
-			(*timers[i].callback)(timers[i].data);
 		}
 	}
 }
@@ -154,12 +160,13 @@ void setRepeatClickHandler(ButtonId button, unsigned short delay, void (*callbac
 }
 
 // TIMERS
-TimerId registerTimerEvent(unsigned short delay, void (*callback)(byte data), byte data)
+TimerId registerTimerEvent(unsigned short delay, void (*callback)(byte data), bool repeat, byte data)
 {
 	byte i;
 	for (i = 0; i < NUMBER_OF_TIMER_EVENTS; i++)
 		if (!timers[i].activated) {
 			timers[i].activated = true;
+			timers[i].repeat = repeat;
 			timers[i].delay = delay;
 			timers[i].activationTime = millis() + delay;
 			timers[i].callback = callback;

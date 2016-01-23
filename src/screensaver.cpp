@@ -69,6 +69,6 @@ void showScreensaver(void)
 
 	printLcd(5, 0, "ARCADE");
 
-	displayUpdateTimer = registerTimerEvent(50, displayUpdate, 0);
-	lcdUpdateTimer = registerTimerEvent(500, lcdUpdate, 0);
+	displayUpdateTimer = registerTimerEvent(50, displayUpdate, true, 0);
+	lcdUpdateTimer = registerTimerEvent(500, lcdUpdate, true, 0);
 }

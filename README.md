@@ -58,4 +58,7 @@ Todo
 ----
 
 * Better localization system (kind of ugly right now)
+* Strings with PROGMEM
 * Events handling optimizations (loops)
+* Transform `TimerId`s to `TimerId`'s pointers so that `cancelTimerEvent()` automatically sets the given `TimerId` to `-1`
+* Flappy Bird

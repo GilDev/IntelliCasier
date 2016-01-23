@@ -2,7 +2,7 @@
 #define CONFIG_H
 
 /* ----- General settings ----- */
-#define DEBUG            // Activate serial messages & internal LED blinking every 1000 loop cycle
+//#define DEBUG            // Activate serial messages & internal LED blinking every 1000 loop cycle
 #define SERIAL_BAUD 9600 // Serial communication speed
 
 #define LANG 1 // 0 = English, 1 = French
@@ -38,7 +38,10 @@ static const unsigned char buttonsPins[] = {
 
 
 /* ----- Pong ----- */
-#define DELAY_BETWEEN_PADDLE_MOVES 200 // Delay between moves when holding up/down
+#define DELAY_BETWEEN_PADDLE_MOVES 200  // Delay between moves when holding up/down
+#define STARTING_SPEED 500              // Time between ball position updates in milliseconds
+#define MAXIMUM_SPEED 200                // Shortest time between ball position updates in milliseconds
+#define DELAY_BETWEEN_SPEED_INCREASE 10 // In seconds
 
 
 #endif

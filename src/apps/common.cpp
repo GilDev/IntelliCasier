@@ -4,8 +4,6 @@
 #include "../events.h"
 #include "../localization.h"
 
-static TimerId updateBallTimer;
-
 void countdown()
 {
 	byte one[8] = {
@@ -40,6 +38,8 @@ void countdown()
 		B01000010,
 		B00111100
 	};
+
+	clearDisplays();
 
 	drawImage(three);
 	printLcd(8 - strlen(strings[READY]) / 2, 0, strings[READY]);
