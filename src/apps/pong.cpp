@@ -46,10 +46,10 @@ static void updateBall(byte data)
 		delay(2000);
 
 		if (ball.x == 0) {
-			players[0].score++;
+			players[1].score++;
 			newRound(0);
 		} else {
-			players[1].score++;
+			players[0].score++;
 			newRound(1);
 		}
 
