@@ -51,17 +51,9 @@ void setRepeatClickHandler(ButtonId button, unsigned short delay, void (*callbac
  * Call a function after a certain amount of time
  * @param delay    Time to wait before trigerring the event in milliseconds
  * @param callback Function to call when the event triggers
- * @param repeat   True if the event never stops
  * @param data     Data to pass to the callback
  */
-TimerId registerTimerEvent(unsigned short delay, void (*callback)(byte data), bool repeat, byte data);
-
-/**
- * Update the amount of time before trigerring a Timer event
- * @param id Timer to update
- * @param newDelay Time to wait before trigerring the event in milliseconds
- */
-void rescheduleTimerEvent(TimerId id, unsigned short newDelay);
+TimerId registerTimerEvent(unsigned short delay, void (*callback)(byte data), byte data);
 
 /**
  * Cancel a Timer event

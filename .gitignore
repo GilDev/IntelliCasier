@@ -1,4 +1,5 @@
 .build*
 .build_ano
-lib/.holder
+ano.ini
 .DS_Store
+lib/.holder

@@ -798,6 +798,8 @@ static void matrixScroll(byte data)
 		}
 		x++;
 	}
+
+	scrollingTimerId = registerTimerEvent(TEXT_SCROLLING_SPEED, matrixScroll, 0);
 }
 
 void newMatrixScroll(const char *text)
@@ -811,7 +813,7 @@ void newMatrixScroll(const char *text)
 		frameBuffer[i] = 0;
 	c = x = printingEmptySpace = 0;
 
-	scrollingTimerId = registerTimerEvent(TEXT_SCROLLING_SPEED, matrixScroll, true, 0);
+	scrollingTimerId = registerTimerEvent(TEXT_SCROLLING_SPEED, matrixScroll, 0);
 }
 
 void stopMatrixScroll(void)
@@ -840,6 +842,7 @@ LiquidCrystal_I2C lcd(0x27, 16, 2);
 
 static TimerId lcdTimers[2] = {-1, -1};
 static char *scrollingLcdTexts[2];
+static unsigned short speeds[2];
 static signed char startPos[2], stopPos[2];
 
 static byte downArrow[] = {
@@ -872,6 +875,8 @@ static void lcdScroll(unsigned char line)
 	byte i;
 	for (i = start; i < end; i++)
 		lcd.write(scrollingLcdTexts[line][((startPos[line] >= 0) ? 0 : -startPos[line]) + i - start]);
+
+	lcdTimers[line] = registerTimerEvent(speeds[line], lcdScroll, line);
 }
 
 void newLcdScroll(const char *text, byte line, unsigned short speed)
@@ -882,7 +887,9 @@ void newLcdScroll(const char *text, byte line, unsigned short speed)
 	startPos[line] = 16;
 	stopPos[line]  = 16 + strlen(scrollingLcdTexts[line]);
 
-	lcdTimers[line] = registerTimerEvent(speed, lcdScroll, true, line);
+	speeds[line] = speed;
+
+	lcdTimers[line] = registerTimerEvent(speed, lcdScroll, line);
 }
 
 void stopLcdScroll(byte line)

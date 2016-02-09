@@ -21,6 +21,8 @@ static void displayUpdate(byte data)
 		x = random(8);
 	}
 	matrix.setLed(0, y, x, true);
+
+	displayUpdateTimer = registerTimerEvent(50, displayUpdate, 0);
 }
 
 static void lcdUpdate(byte data)
@@ -34,6 +36,8 @@ static void lcdUpdate(byte data)
 		displaying = true;
 		printLcd(5, 0, "ARCADE");
 	}
+
+	lcdUpdateTimer = registerTimerEvent(500, lcdUpdate, 0);
 }
 
 void exitScreensaver(byte data)
@@ -70,6 +74,6 @@ void showScreensaver(void)
 
 	newLcdScroll(strings[PRESS_BUTTON], 1, 200);
 
-	displayUpdateTimer = registerTimerEvent(50, displayUpdate, true, 0);
-	lcdUpdateTimer = registerTimerEvent(500, lcdUpdate, true, 0);
+	displayUpdateTimer = registerTimerEvent(50, displayUpdate, 0);
+	lcdUpdateTimer = registerTimerEvent(500, lcdUpdate, 0);
 }

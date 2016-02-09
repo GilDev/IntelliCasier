@@ -61,14 +61,14 @@ static void updateBall(byte data)
 
 	matrix.setLed(0, ball.y, ball.x, true);
 
-	updateBallTimer = registerTimerEvent(ball.speed * 10, updateBall, false, 0);
+	updateBallTimer = registerTimerEvent(ball.speed * 10, updateBall, 0);
 }
 
 static void updateSpeed(byte data)
 {
 	if (ball.speed > MAXIMUM_SPEED) {
 		ball.speed -= 5;
-		updateSpeedTimer = registerTimerEvent(DELAY_BETWEEN_SPEED_INCREASE * 1000, updateSpeed, false, 0);
+		updateSpeedTimer = registerTimerEvent(DELAY_BETWEEN_SPEED_INCREASE * 1000, updateSpeed, 0);
 	}
 }
 
@@ -146,8 +146,8 @@ static void newRound(byte playerStarting)
 
 	delay(500);
 
-	updateBallTimer = registerTimerEvent(ball.speed * 10, updateBall, false, 0);
-	updateSpeedTimer = registerTimerEvent(DELAY_BETWEEN_SPEED_INCREASE * 1000, updateSpeed, false, 0);
+	updateBallTimer = registerTimerEvent(ball.speed * 10, updateBall, 0);
+	updateSpeedTimer = registerTimerEvent(DELAY_BETWEEN_SPEED_INCREASE * 1000, updateSpeed, 0);
 }
 
 void showPong(void)
