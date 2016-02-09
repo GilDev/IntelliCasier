@@ -168,10 +168,12 @@ TimerId registerTimerEvent(unsigned short delay, void (*callback)(byte data), by
 		}
 }
 
-void cancelTimerEvent(TimerId id)
+void cancelTimerEvent(TimerId *id)
 {
-	if (id >= 0)
-		timers[id].activated = false;
+	if (*id >= 0) {
+		timers[*id].activated = false;
+		*id = -1;
+	}
 }
 
 void cancelAllTimerEvents(void)

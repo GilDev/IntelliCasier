@@ -117,9 +117,8 @@ static void menu(byte data)
 
 static void endRound(void)
 {
-	cancelTimerEvent(updateBallTimer);
-	cancelTimerEvent(updateSpeedTimer);
-	updateBallTimer = updateSpeedTimer = -1;
+	cancelTimerEvent(&updateBallTimer);
+	cancelTimerEvent(&updateSpeedTimer);
 }
 
 static void newRound(byte playerStarting)

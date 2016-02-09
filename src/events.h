@@ -59,7 +59,7 @@ TimerId registerTimerEvent(unsigned short delay, void (*callback)(byte data), by
  * Cancel a Timer event
  * @param id Timer to cancel
  */
-void cancelTimerEvent(TimerId id);
+void cancelTimerEvent(TimerId *id);
 
 /**
  * Cancel all Timer events

@@ -818,8 +818,7 @@ void newMatrixScroll(const char *text)
 
 void stopMatrixScroll(void)
 {
-	cancelTimerEvent(scrollingTimerId);
-	scrollingTimerId = -1;
+	cancelTimerEvent(&scrollingTimerId);
 }
 
 void drawImage(byte *img)
@@ -895,8 +894,7 @@ void newLcdScroll(const char *text, byte line, unsigned short speed)
 void stopLcdScroll(byte line)
 {
 	clearLcdLine(line);
-	cancelTimerEvent(lcdTimers[line]);
-	lcdTimers[line] = -1;
+	cancelTimerEvent(&lcdTimers[line]);
 }
 
 void clearLcdLine(byte line)

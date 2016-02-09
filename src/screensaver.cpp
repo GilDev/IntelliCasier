@@ -31,7 +31,7 @@ static void lcdUpdate(byte data)
 
 	if (displaying) {
 		displaying = false;
-		printLcd(5, 0, "      ");
+		clearLcdLine(0);
 	} else {
 		displaying = true;
 		printLcd(5, 0, "ARCADE");
@@ -42,8 +42,8 @@ static void lcdUpdate(byte data)
 
 void exitScreensaver(byte data)
 {
-	cancelTimerEvent(displayUpdateTimer);
-	cancelTimerEvent(lcdUpdateTimer);
+	cancelTimerEvent(&displayUpdateTimer);
+	cancelTimerEvent(&lcdUpdateTimer);
 	matrix.setIntensity(0, DEFAULT_MATRIX_INTENSITY);
 	stopLcdScroll(1);
 	displayingScreensaver = false;
