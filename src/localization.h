@@ -20,7 +20,8 @@ enum Strings {
 	TRON,
 	READY,
 	SET,
-	GO
+	GO,
+	PRESS_BUTTON
 };
 
 #endif

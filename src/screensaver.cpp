@@ -2,6 +2,7 @@
 #include "config.h"
 #include "displays.h"
 #include "events.h"
+#include "localization.h"
 #include "screensaver.h"
 #include "apps/menu.h"
 
@@ -28,10 +29,10 @@ static void lcdUpdate(byte data)
 
 	if (displaying) {
 		displaying = false;
-		lcd.noDisplay();
+		printLcd(5, 0, "      ");
 	} else {
 		displaying = true;
-		lcd.display();
+		printLcd(5, 0, "ARCADE");
 	}
 }
 
@@ -40,7 +41,7 @@ void exitScreensaver(byte data)
 	cancelTimerEvent(displayUpdateTimer);
 	cancelTimerEvent(lcdUpdateTimer);
 	matrix.setIntensity(0, DEFAULT_MATRIX_INTENSITY);
-	lcd.display();
+	stopLcdScroll(1);
 	displayingScreensaver = false;
 	showMenu();
 }
@@ -67,7 +68,7 @@ void showScreensaver(void)
 	y = 7;
 	x = random(8);
 
-	printLcd(5, 0, "ARCADE");
+	newLcdScroll(strings[PRESS_BUTTON], 1, 200);
 
 	displayUpdateTimer = registerTimerEvent(50, displayUpdate, true, 0);
 	lcdUpdateTimer = registerTimerEvent(500, lcdUpdate, true, 0);

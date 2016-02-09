@@ -61,4 +61,5 @@ Todo
 * Strings with PROGMEM
 * Events handling optimizations (loops)
 * Transform `TimerId`s to `TimerId`'s pointers so that `cancelTimerEvent()` automatically sets the given `TimerId` to `-1`
+* Remove the `repeat` option of timer events and never repeat those events
 * Flappy Bird

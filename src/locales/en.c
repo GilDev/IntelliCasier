@@ -16,6 +16,7 @@ const char *strings[] = {
 	"Tron",
 	"Ready?",
 	"Set",
-	"Go!"
+	"Go!",
+	"Press a button!"
 };
 #endif

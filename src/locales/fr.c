@@ -16,6 +16,7 @@ const char *strings[] = {
 	"Tron",
 	"A vos marques",
 	"Pret",
-	"Partez !"
+	"Partez !",
+	"Appuyez sur un bouton !"
 };
 #endif
