@@ -33,8 +33,8 @@ static void displayMenu(void)
 		switch (menuSelection) {
 			case 0:
 				newMatrixScroll(strings[GAMES_1_PLAYER_MATRIX]);
-				printLcd(8 - strlen(strings[GAMES_1_PLAYER_LCD]) / 2, 0, strings[GAMES_1_PLAYER_LCD]);
-				printLcd(7 - strlen(strings[CONFIRM]), 1, strings[CONFIRM]);
+				printLcd(8 - stringsSizes[GAMES_1_PLAYER_LCD] / 2, 0, strings[GAMES_1_PLAYER_LCD]);
+				printLcd(7 - stringsSizes[CONFIRM], 1, strings[CONFIRM]);
 				// Print arrow
 				lcd.setCursor(8, 1);
 				lcd.write(0);
@@ -42,16 +42,16 @@ static void displayMenu(void)
 			case 1:
 				stopMatrixScroll();
 				newMatrixScroll(strings[GAMES_2_PLAYERS_MATRIX]);
-				printLcd(8 - strlen(strings[GAMES_2_PLAYERS_LCD]) / 2, 0, strings[GAMES_2_PLAYERS_LCD]);
-				printLcd(7 - strlen(strings[CONFIRM]), 1, strings[CONFIRM]);
+				printLcd(8 - stringsSizes[GAMES_2_PLAYERS_LCD] / 2, 0, strings[GAMES_2_PLAYERS_LCD]);
+				printLcd(7 - stringsSizes[CONFIRM], 1, strings[CONFIRM]);
 				// Print arrow
 				lcd.setCursor(8, 1);
 				lcd.write(0);
 				break;
 			case 2:
 				newMatrixScroll(strings[ABOUT]);
-				printLcd(8 - strlen(strings[ABOUT]) / 2, 0, strings[ABOUT]);
-				printLcd(7 - strlen(strings[CONFIRM]), 1, strings[CONFIRM]);
+				printLcd(8 - stringsSizes[ABOUT] / 2, 0, strings[ABOUT]);
+				printLcd(7 - stringsSizes[CONFIRM], 1, strings[CONFIRM]);
 				// Print arrow
 				lcd.setCursor(8, 1);
 				lcd.write(0);
@@ -62,23 +62,23 @@ static void displayMenu(void)
 				switch (submenuSelection) {
 					case 1:
 						newMatrixScroll(strings[SNAKE]);
-						printLcd(8 - strlen(strings[SNAKE]) / 2, 0, strings[SNAKE]);
-						printLcd(7 - strlen(strings[PLAY]), 1, strings[PLAY]);
+						printLcd(8 - stringsSizes[SNAKE] / 2, 0, strings[SNAKE]);
+						printLcd(7 - stringsSizes[PLAY], 1, strings[PLAY]);
 						// Print arrow
 						lcd.setCursor(8, 1);
 						lcd.write(0);
 						break;
 					case 2:
 						newMatrixScroll(strings[RACE]);
-						printLcd(8 - strlen(strings[RACE]) / 2, 0, strings[RACE]);
-						printLcd(7 - strlen(strings[PLAY]), 1, strings[PLAY]);
+						printLcd(8 - stringsSizes[RACE] / 2, 0, strings[RACE]);
+						printLcd(7 - stringsSizes[PLAY], 1, strings[PLAY]);
 						// Print arrow
 						lcd.setCursor(8, 1);
 						lcd.write(0);
 						break;
 					case 3:
 						drawImage(returnIcon);
-						printLcd(8 - strlen(strings[BACK]) / 2, 0, strings[BACK]);
+						printLcd(8 - stringsSizes[BACK] / 2, 0, strings[BACK]);
 						// Print arrow
 						lcd.setCursor(8, 1);
 						lcd.write(0);
@@ -88,23 +88,23 @@ static void displayMenu(void)
 				switch(submenuSelection) {
 					case 1:
 						newMatrixScroll(strings[PONG]);
-						printLcd(8 - strlen(strings[PONG]) / 2, 0, strings[PONG]);
-						printLcd(7 - strlen(strings[PLAY]), 1, strings[PLAY]);
+						printLcd(8 - stringsSizes[PONG] / 2, 0, strings[PONG]);
+						printLcd(7 - stringsSizes[PLAY], 1, strings[PLAY]);
 						// Print arrow
 						lcd.setCursor(8, 1);
 						lcd.write(0);
 						break;
 					case 2:
 						newMatrixScroll(strings[TRON]);
-						printLcd(8 - strlen(strings[TRON]) / 2, 0, strings[TRON]);
-						printLcd(7 - strlen(strings[PLAY]), 1, strings[PLAY]);
+						printLcd(8 - stringsSizes[TRON] / 2, 0, strings[TRON]);
+						printLcd(7 - stringsSizes[PLAY], 1, strings[PLAY]);
 						// Print arrow
 						lcd.setCursor(8, 1);
 						lcd.write(0);
 						break;
 					case 3:
 						drawImage(returnIcon);
-						printLcd(8 - strlen(strings[BACK]) / 2, 0, strings[BACK]);
+						printLcd(8 - stringsSizes[BACK] / 2, 0, strings[BACK]);
 						// Print arrow
 						lcd.setCursor(8, 1);
 						lcd.write(0);

@@ -4,6 +4,7 @@
 #include "config.h"
 
 extern const char *strings[];
+extern const byte stringsSizes[]; // stringsSizes[i] == strlen(strings[i]) 
 
 enum Strings {
 	CONFIRM,
@@ -21,7 +22,9 @@ enum Strings {
 	READY,
 	SET,
 	GO,
-	PRESS_BUTTON
+	PRESS_BUTTON,
+	BY_GILDEV,
+	ARCADE_LOCKER
 };
 
 #endif

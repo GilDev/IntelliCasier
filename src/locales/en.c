@@ -1,3 +1,4 @@
+#include <Arduino.h>
 #include "../config.h"
 
 #if (LANG == 0)
@@ -17,6 +18,30 @@ const char *strings[] = {
 	"Ready?",
 	"Set",
 	"Go!",
-	"Press a button!"
+	"Press a button!",
+	"Made by GilDev",
+	"Arcade Locker"
 };
+
+const byte stringsSizes[] = {
+	7,
+	4,
+	4,
+	8,
+	14,
+	9,
+	14,
+	5,
+	4,
+	5,
+	4,
+	4,
+	6,
+	3,
+	3,
+	15,
+	14,
+	13
+};
+
 #endif

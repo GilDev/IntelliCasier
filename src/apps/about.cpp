@@ -4,6 +4,7 @@
 #include "../config.h"
 #include "../displays.h"
 #include "../events.h"
+#include "../localization.h"
 
 static byte code[] = {0, 3, 1, 2};
 static byte pos;
@@ -44,7 +45,7 @@ void showAbout(void)
 
 	pos = 0;
 
-	newMatrixScroll("Casier Intelligent");
-	printLcd(0, 0, "Fait par GilDev");
+	newMatrixScroll(strings[ARCADE_LOCKER]);
+	printLcd(7 - stringsSizes[BY_GILDEV] / 2, 0, strings[BY_GILDEV]); // Not centered in English
 	newLcdScroll("http://github.com/GilDev/ArcadeLocker", 1, 200);
 }

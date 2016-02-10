@@ -42,15 +42,15 @@ void countdown()
 	clearDisplays();
 
 	drawImage(three);
-	printLcd(8 - strlen(strings[READY]) / 2, 0, strings[READY]);
+	printLcd(8 - stringsSizes[READY] / 2, 0, strings[READY]);
 	delay(1000);
 	drawImage(two);
 	clearLcdLine(0);
-	printLcd(8 - strlen(strings[SET]) / 2, 0, strings[SET]);
+	printLcd(8 - stringsSizes[SET] / 2, 0, strings[SET]);
 	delay(1000);
 	drawImage(one);
 	clearLcdLine(0);
-	printLcd(8 - strlen(strings[GO]) / 2, 0, strings[GO]);
+	printLcd(8 - stringsSizes[GO] / 2, 0, strings[GO]);
 	delay(1000);
 
 	clearDisplays();
