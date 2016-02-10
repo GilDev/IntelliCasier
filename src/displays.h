@@ -41,7 +41,7 @@ void drawImage(byte *img);
  * @param y    Vertical coordinate
  * @param text Text to print
  */
-#define printLcd(x, y, text) lcd.setCursor(x, y); lcd.print(text);
+#define printLcd(x, y, text) {lcd.setCursor(x, y); lcd.print(text);}
 
  /**
   * Clear text on an LCD display's line

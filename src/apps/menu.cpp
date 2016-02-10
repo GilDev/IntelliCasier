@@ -1,5 +1,6 @@
 #include <Arduino.h>
 #include <avr/pgmspace.h>
+#include "about.h"
 #include "menu.h"
 #include "pong.h"
 #include "../config.h"
@@ -149,6 +150,12 @@ static void right(byte data)
 static void menu(byte data)
 {
 	if (submenuSelection == 0) { // Entering submenu
+		if (menuSelection == 2) { // About screen
+			exitMenu();
+			showAbout();
+			return;
+		}
+
 		submenuSelection = 1;
 		printLcd(0, 1, F("        "));
 		displayMenu();
