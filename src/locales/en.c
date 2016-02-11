@@ -20,7 +20,14 @@ const char *strings[] = {
 	"Go!",
 	"Press a button!",
 	"Made by GilDev",
-	"Arcade Locker"
+	"Arcade Locker",
+	"Brightness",
+	"Screensaver brightness",
+	"Matrix scrolling speed (ms)",
+	"Pong: Paddle speed (ms)",
+	"Pong: Starting speed (ms)",
+	"Pong: Max speed (ms)",
+	"Pong: Time between speed change (ms)"
 };
 
 const byte stringsSizes[] = {
@@ -41,7 +48,14 @@ const byte stringsSizes[] = {
 	3,
 	15,
 	14,
-	13
+	13,
+	10,
+	22,
+	27,
+	23,
+	25,
+	20,
+	36
 };
 
 #endif

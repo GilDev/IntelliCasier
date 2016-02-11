@@ -3,6 +3,7 @@
 #include "config.h"
 #include "displays.h"
 #include "events.h"
+#include "apps/options.h"
 
 // MATRIX
 #define actualLetterId ((scrollingMatrixText[c] >= 'a') ? scrollingMatrixText[c] - 'a' + 26 : (scrollingMatrixText[c] <= '9') ? scrollingMatrixText[c] - '0' + 26 * 2 : scrollingMatrixText[c] - 'A')
@@ -799,7 +800,7 @@ static void matrixScroll(byte data)
 		x++;
 	}
 
-	scrollingTimerId = registerTimerEvent(TEXT_SCROLLING_SPEED, matrixScroll, 0);
+	scrollingTimerId = registerTimerEvent(options[MATRIX_SCROLLING_SPEED], matrixScroll, 0);
 }
 
 void newMatrixScroll(const char *text)
@@ -813,7 +814,7 @@ void newMatrixScroll(const char *text)
 		frameBuffer[i] = 0;
 	c = x = printingEmptySpace = 0;
 
-	scrollingTimerId = registerTimerEvent(TEXT_SCROLLING_SPEED, matrixScroll, 0);
+	scrollingTimerId = registerTimerEvent(options[MATRIX_SCROLLING_SPEED], matrixScroll, 0);
 }
 
 void stopMatrixScroll(void)

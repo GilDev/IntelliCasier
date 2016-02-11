@@ -38,10 +38,10 @@ static const unsigned char buttonsPins[] = {
 
 
 /* ----- Pong ----- */
-#define DELAY_BETWEEN_PADDLE_MOVES 200  // Delay between moves when holding up/down
-#define STARTING_SPEED 500              // Time between ball position updates in milliseconds
-#define MAXIMUM_SPEED 200                // Shortest time between ball position updates in milliseconds
-#define DELAY_BETWEEN_SPEED_INCREASE 10 // In seconds
+#define DELAY_BETWEEN_PADDLE_MOVES 200    // Delay between moves when holding up/down
+#define STARTING_SPEED 500                // Time between ball position updates in milliseconds
+#define MAXIMUM_SPEED 100                 // Shortest time between ball position updates in milliseconds
+#define DELAY_BETWEEN_SPEED_INCREASE 5000 // In milliseconds
 
 
 #endif

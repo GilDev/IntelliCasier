@@ -5,6 +5,7 @@
 #include "localization.h"
 #include "screensaver.h"
 #include "apps/menu.h"
+#include "apps/options.h"
 
 bool displayingScreensaver = false;
 unsigned short screensaverDelay;
@@ -44,7 +45,7 @@ void exitScreensaver(byte data)
 {
 	cancelTimerEvent(&displayUpdateTimer);
 	cancelTimerEvent(&lcdUpdateTimer);
-	matrix.setIntensity(0, DEFAULT_MATRIX_INTENSITY);
+	matrix.setIntensity(0, options[BRIGHTNESS]);
 	stopLcdScroll(1);
 	displayingScreensaver = false;
 	showMenu();
@@ -67,7 +68,7 @@ void showScreensaver(void)
 	clearDisplays();
 	cancelAllTimerEvents();
 
-	matrix.setIntensity(0, SCREENSAVER_MATRIX_INTENSITY);
+	matrix.setIntensity(0, options[SCREENSAVER_BRIGHTNESS]);
 	matrix.setRow(0, 0, 255);
 	y = 7;
 	x = random(8);

@@ -20,7 +20,14 @@ const char *strings[] = {
 	"Partez !",
 	"Appuyez sur un bouton !",
 	"Fait par GilDev",
-	"Casier Intelligent"
+	"Casier Intelligent",
+	"Luminosite",
+	"Luminosite economiseur ecran",
+	"Vitesse defilemement matrice (ms)",
+	"Pong : Vitesse raquette (ms)",
+	"Pong : Vitesse de base (ms)",
+	"Pong : Vitesse max (ms)",
+	"Pong : Delai entre accelerations (ms)"
 };
 
 const byte stringsSizes[] = {
@@ -41,7 +48,14 @@ const byte stringsSizes[] = {
 	8,
 	23,
 	15,
-	18
+	18,
+	10,
+	28,
+	33,
+	28,
+	27,
+	23,
+	37
 };
 
 #endif

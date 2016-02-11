@@ -1,6 +1,6 @@
 #include <Arduino.h>
 #include "menu.h"
-#include "common.h"
+#include "options.h"
 #include "../config.h"
 #include "../displays.h"
 #include "../events.h"
@@ -17,6 +17,7 @@ static void advanceCode(byte button)
 		pos++;
 		if (pos == sizeof code) {
 			exitAbout();
+			showOptions();
 		}
 	} else {
 		pos = 0;

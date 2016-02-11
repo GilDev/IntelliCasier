@@ -24,7 +24,11 @@ enum Strings {
 	GO,
 	PRESS_BUTTON,
 	BY_GILDEV,
-	ARCADE_LOCKER
+	ARCADE_LOCKER,
+	OPTION_1,
+	OPTION_2,
+	OPTION_3,
+	OPTION_4
 };
 
 #endif

@@ -62,4 +62,7 @@ Todo
 * Events handling optimizations (loops)
 * Transform `TimerId`s to `TimerId`'s pointers so that `cancelTimerEvent()` automatically sets the given `TimerId` to `-1`
 * Remove the `repeat` option of timer events and never repeat those events
+(start position, spaces before looping)
+* Ability to exit games while the countdown, well… counts down
+* Options storage in EEPROM
 * Flappy Bird

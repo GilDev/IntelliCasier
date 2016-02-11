@@ -1,6 +1,7 @@
 #include <Arduino.h>
 #include "menu.h"
 #include "common.h"
+#include "options.h"
 #include "../config.h"
 #include "../displays.h"
 #include "../events.h"
@@ -12,7 +13,7 @@ static struct {
 	byte y:3;
 	signed char xDir:2;
 	signed char yDir:2;
-	byte speed; // In milliseconds / 10
+	unsigned short speed; // In milliseconds
 } ball;
 
 static struct {
@@ -61,20 +62,15 @@ static void updateBall(byte data)
 
 	matrix.setLed(0, ball.y, ball.x, true);
 
-	updateBallTimer = registerTimerEvent(ball.speed * 10, updateBall, 0);
+	updateBallTimer = registerTimerEvent(ball.speed, updateBall, 0);
 }
 
 static void updateSpeed(byte data)
 {
-	if (ball.speed > MAXIMUM_SPEED) {
-		ball.speed -= 5;
-		updateSpeedTimer = registerTimerEvent(DELAY_BETWEEN_SPEED_INCREASE * 1000, updateSpeed, 0);
+	if (ball.speed > options[PONG_MIN_DELAY]) {
+		ball.speed -= 50;
+		updateSpeedTimer = registerTimerEvent(options[SPEED_INCREASE_DELAY], updateSpeed, 0);
 	}
-}
-
-static void printScore(void)
-{
-
 }
 
 static void up1(byte data)
@@ -129,7 +125,7 @@ static void newRound(byte playerStarting)
 	ball.y = random(1, 7);
 	ball.xDir = (playerStarting == 0) ? 1 : -1;
 	ball.yDir = (random(0, 2)) ? 1 : -1;
-	ball.speed = STARTING_SPEED / 10;
+	ball.speed = options[PONG_START_DELAY];
 
 	players[0].y = players[1].y = 3;
 
@@ -145,16 +141,16 @@ static void newRound(byte playerStarting)
 
 	delay(500);
 
-	updateBallTimer = registerTimerEvent(ball.speed * 10, updateBall, 0);
-	updateSpeedTimer = registerTimerEvent(DELAY_BETWEEN_SPEED_INCREASE * 1000, updateSpeed, 0);
+	updateBallTimer = registerTimerEvent(ball.speed, updateBall, 0);
+	updateSpeedTimer = registerTimerEvent(options[SPEED_INCREASE_DELAY], updateSpeed, 0);
 }
 
 void showPong(void)
 {
-	setRepeatClickHandler(PLAYER1_LEFT, DELAY_BETWEEN_PADDLE_MOVES, up1, 0);
-	setRepeatClickHandler(PLAYER1_RIGHT, DELAY_BETWEEN_PADDLE_MOVES, down1, 0);
-	setRepeatClickHandler(PLAYER2_LEFT, DELAY_BETWEEN_PADDLE_MOVES, up2, 0);
-	setRepeatClickHandler(PLAYER2_RIGHT, DELAY_BETWEEN_PADDLE_MOVES, down2, 0);
+	setRepeatClickHandler(PLAYER1_LEFT, options[PONG_PADDLE_SPEED], up1, 0);
+	setRepeatClickHandler(PLAYER1_RIGHT, options[PONG_PADDLE_SPEED], down1, 0);
+	setRepeatClickHandler(PLAYER2_LEFT, options[PONG_PADDLE_SPEED], up2, 0);
+	setRepeatClickHandler(PLAYER2_RIGHT, options[PONG_PADDLE_SPEED], down2, 0);
 	setSingleClickHandler(MENU, menu, 0);
 
 	updateBallTimer = updateSpeedTimer = -1;
