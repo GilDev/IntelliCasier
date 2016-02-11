@@ -1,7 +1,7 @@
 Arcade Locker
 =============
 
-This project uses a standard school locker with two 8*8 holes grids. 5 mm LEDs fits beautifully in those holes, small tactile switches too, a LCD display can be added in the name's tag space, thus a boring locker can be easily transformed into a multi-game arcade cabinet. Enjoy! (menus only in French for now)
+This project uses a standard school locker with two 8*8 holes grids. 5 mm LEDs fits beautifully in those holes, small tactile switches too, a LCD display can be added in the name's tag space, thus a boring locker can be easily transformed into a multi-game arcade cabinet. Enjoy!
 
 *Prototype:*
 ![Second prototype](assets/photos/SecondPrototype.jpg)
@@ -57,12 +57,12 @@ I currently use [Arturo](https://github.com/scottdarch/Arturo) to compile the sk
 Todo
 ----
 
-* Better localization system (kind of ugly right now)
-* Strings with PROGMEM
-* Events handling optimizations (loops)
-* Transform `TimerId`s to `TimerId`'s pointers so that `cancelTimerEvent()` automatically sets the given `TimerId` to `-1`
+* Better localization system (kind of ugly right now) I guess
+* Strings in flash with PROGMEM
+* Optimizing event handling (loops)
 * Remove the `repeat` option of timer events and never repeat those events
-(start position, spaces before looping)
+* Enhance `newLcdScroll()` (start position, spaces before looping)
 * Ability to exit games while the countdown, well… counts down
-* Options storage in EEPROM
+* Settings storage in EEPROM
 * Flappy Bird
+* High scores with the ability to enter a name or initials
