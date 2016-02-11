@@ -66,3 +66,4 @@ Todo
 * Settings storage in EEPROM
 * Flappy Bird
 * High scores with the ability to enter a name or initials
+* Maybe add a custom `malloc()` to dynamically allocate app's variable memory and not having all those global variables taking place in memory
