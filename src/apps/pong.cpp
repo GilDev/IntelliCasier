@@ -32,16 +32,17 @@ static void updateBall(byte data)
 	if (ball.y <= 0 || ball.y >= 7)
 		ball.yDir *= -1;
 
-	if (ball.x == 1 or ball.x == 6) {
+	if (ball.x == 1 || ball.x == 6) {
 		byte player = (ball.x == 1) ? 0 : 1;
 
-		if ((ball.y == players[player].y) or (ball.y == players[player].y + 1)) {
+		if ((ball.y == players[player].y) || (ball.y == players[player].y + 1)) {
 			ball.xDir *= -1;
-		} else if ((ball.y == players[player].y - 1 and ball.yDir == 1) or (ball.y == players[player].y + 2 and ball.yDir == -1)) {
+		} else if (((ball.y == players[player].y - 1 && ball.yDir == 1) || (ball.y == players[player].y + 2 && ball.yDir == -1))) {
 			ball.xDir *= -1;
-			ball.yDir *= -1;
+			if (ball.y > 0 && ball.y < 7) // Avoid double y direction inversion
+				ball.yDir *= -1;
 		}
-	} else if (ball.x == 0 or ball.x == 7) { // Ball out of bound
+	} else if (ball.x == 0 || ball.x == 7) { // Ball out of bound
 		printLcd((ball.x == 0) ? 13 : 2, 1, "+1");
 
 		delay(2000);
