@@ -45,7 +45,8 @@ static void updateBall(byte data)
 	} else if (ball.x == 0 || ball.x == 7) { // Ball out of bound
 		printLcd((ball.x == 0) ? 13 : 2, 1, "+1");
 
-		delay(2000);
+		wipeMatrix();
+		delay(500);
 
 		if (ball.x == 0) {
 			players[1].score++;
