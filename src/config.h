@@ -44,4 +44,7 @@ static const unsigned char buttonsPins[] = {
 #define DELAY_BETWEEN_SPEED_INCREASE 5000 // In milliseconds
 
 
+/* ----- Snake ----- */
+#define SNAKE_SPEED 500 // Delay between snake's moves in milliseconds
+
 #endif

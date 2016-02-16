@@ -45,15 +45,26 @@ static void print(void)
 	updateValue();
 }
 
-static void plus(byte data)
+static void changeValue(byte plus)
 {
-	options[selectedOption]++;
-	updateValue();
-}
+	char multiplier = (plus == 0) ? -1 : 1;
 
-static void minus(byte data)
-{
-	options[selectedOption]--;
+	switch (selectedOption) {
+		case MATRIX_SCROLLING_SPEED:
+		case PONG_PADDLE_SPEED:
+		case PONG_START_DELAY:
+		case PONG_MIN_DELAY:
+			options[selectedOption] += 10 * multiplier;
+			break;
+
+		case SPEED_INCREASE_DELAY:
+			options[selectedOption] += 100 * multiplier;
+			break;
+
+		default:
+			options[selectedOption] += 1 * multiplier;
+	}
+	
 	updateValue();
 }
 
@@ -89,9 +100,9 @@ void showOptions(void)
 	clearDisplays();
 
 	setSingleClickHandler(PLAYER1_LEFT, previous, 0);
-	setSingleClickHandler(PLAYER1_RIGHT, next, 1);
-	setRepeatClickHandler(PLAYER2_LEFT, 100, plus, 2);
-	setRepeatClickHandler(PLAYER2_RIGHT, 100, minus, 3);
+	setSingleClickHandler(PLAYER1_RIGHT, next, 0);
+	setRepeatClickHandler(PLAYER2_LEFT, 100, changeValue, 1);
+	setRepeatClickHandler(PLAYER2_RIGHT, 100, changeValue, 0);
 	setSingleClickHandler(MENU, menu, 0);
 
 	selectedOption = 0;
