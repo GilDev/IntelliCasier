@@ -1,8 +1,8 @@
 #include <Arduino.h>
 #include <avr/pgmspace.h>
 #include "about.h"
-#include "menu.h"
 #include "pong.h"
+#include "snake.h"
 #include "../config.h"
 #include "../displays.h"
 #include "../events.h"
@@ -171,7 +171,9 @@ static void menu(byte data)
 			switch (menuSelection) {
 				case 0: // 1 player games
 					switch (submenuSelection) {
-						
+						case 1:
+							showSnake();
+							break;
 					}
 					break;
 				case 1: // 2 players games

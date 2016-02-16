@@ -6,7 +6,7 @@
 #include "../displays.h"
 #include "../events.h"
 
-static TimerId updateBallTimer, updateSpeedTimer;
+static TimerId updateBallTimer  = -1, updateSpeedTimer = -1;
 
 static struct {
 	byte x:3;
@@ -118,19 +118,13 @@ static void endRound(void)
 	cancelTimerEvent(&updateSpeedTimer);
 }
 
-static void newRound(byte playerStarting)
+static void start(void)
 {
-	endRound();
-
-	ball.x = (playerStarting == 0) ? 2 : 5;
-	ball.y = random(1, 7);
-	ball.xDir = (playerStarting == 0) ? 1 : -1;
-	ball.yDir = (random(0, 2)) ? 1 : -1;
-	ball.speed = options[PONG_START_DELAY];
-
-	players[0].y = players[1].y = 3;
-
-	countdown();
+	setRepeatClickHandler(PLAYER1_LEFT, options[PONG_PADDLE_SPEED], up1, 0);
+	setRepeatClickHandler(PLAYER1_RIGHT, options[PONG_PADDLE_SPEED], down1, 0);
+	setRepeatClickHandler(PLAYER2_LEFT, options[PONG_PADDLE_SPEED], up2, 0);
+	setRepeatClickHandler(PLAYER2_RIGHT, options[PONG_PADDLE_SPEED], down2, 0);
+	setSingleClickHandler(MENU, menu, 0);
 
 	matrix.setRow(0, 3, B10000001);
 	matrix.setRow(0, 4, B10000001);
@@ -146,16 +140,23 @@ static void newRound(byte playerStarting)
 	updateSpeedTimer = registerTimerEvent(options[SPEED_INCREASE_DELAY], updateSpeed, 0);
 }
 
+static void newRound(byte playerStarting)
+{
+	endRound();
+
+	ball.x = (playerStarting == 0) ? 2 : 5;
+	ball.y = random(1, 7);
+	ball.xDir = (playerStarting == 0) ? 1 : -1;
+	ball.yDir = (random(0, 2)) ? 1 : -1;
+	ball.speed = options[PONG_START_DELAY];
+
+	players[0].y = players[1].y = 3;
+
+	countdown(start, menu);
+}
+
 void showPong(void)
 {
-	setRepeatClickHandler(PLAYER1_LEFT, options[PONG_PADDLE_SPEED], up1, 0);
-	setRepeatClickHandler(PLAYER1_RIGHT, options[PONG_PADDLE_SPEED], down1, 0);
-	setRepeatClickHandler(PLAYER2_LEFT, options[PONG_PADDLE_SPEED], up2, 0);
-	setRepeatClickHandler(PLAYER2_RIGHT, options[PONG_PADDLE_SPEED], down2, 0);
-	setSingleClickHandler(MENU, menu, 0);
-
-	updateBallTimer = updateSpeedTimer = -1;
-
 	players[0].score = players[1].score = 0;
 
 	newRound(0);
