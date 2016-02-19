@@ -45,7 +45,7 @@ void exitScreensaver(byte data)
 {
 	cancelTimerEvent(&displayUpdateTimer);
 	cancelTimerEvent(&lcdUpdateTimer);
-	matrix.setIntensity(0, options[BRIGHTNESS]);
+	matrix.setIntensity(0, options[MATRIX_BRIGHTNESS_O]);
 	stopLcdScroll(1);
 	displayingScreensaver = false;
 	showMenu();
@@ -68,7 +68,7 @@ void showScreensaver(void)
 	clearDisplays();
 	cancelAllTimerEvents();
 
-	matrix.setIntensity(0, options[SCREENSAVER_BRIGHTNESS]);
+	matrix.setIntensity(0, options[MATRIX_SCREENSAVER_BRIGHTNESS_O]);
 	matrix.setRow(0, 0, 255);
 	y = 7;
 	x = random(8);

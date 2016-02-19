@@ -69,9 +69,9 @@ static void updateBall(byte data)
 
 static void updateSpeed(byte data)
 {
-	if (ball.speed > options[PONG_MIN_DELAY]) {
+	if (ball.speed > options[PONG_MIN_DELAY_O]) {
 		ball.speed -= 50;
-		updateSpeedTimer = registerTimerEvent(options[SPEED_INCREASE_DELAY], updateSpeed, 0);
+		updateSpeedTimer = registerTimerEvent(options[PONG_SPEED_INCREASES_DELAY_O], updateSpeed, 0);
 	}
 }
 
@@ -121,10 +121,10 @@ static void endRound(void)
 
 static void start(void)
 {
-	setRepeatClickHandler(PLAYER1_LEFT, options[PONG_PADDLE_SPEED], up1, 0);
-	setRepeatClickHandler(PLAYER1_RIGHT, options[PONG_PADDLE_SPEED], down1, 0);
-	setRepeatClickHandler(PLAYER2_LEFT, options[PONG_PADDLE_SPEED], up2, 0);
-	setRepeatClickHandler(PLAYER2_RIGHT, options[PONG_PADDLE_SPEED], down2, 0);
+	setRepeatClickHandler(PLAYER1_LEFT, options[PONG_PADDLE_DELAY_O], up1, 0);
+	setRepeatClickHandler(PLAYER1_RIGHT, options[PONG_PADDLE_DELAY_O], down1, 0);
+	setRepeatClickHandler(PLAYER2_LEFT, options[PONG_PADDLE_DELAY_O], up2, 0);
+	setRepeatClickHandler(PLAYER2_RIGHT, options[PONG_PADDLE_DELAY_O], down2, 0);
 	setSingleClickHandler(MENU, menu, 0);
 
 	matrix.setRow(0, 3, B10000001);
@@ -138,7 +138,7 @@ static void start(void)
 	delay(500);
 
 	updateBallTimer = registerTimerEvent(ball.speed, updateBall, 0);
-	updateSpeedTimer = registerTimerEvent(options[SPEED_INCREASE_DELAY], updateSpeed, 0);
+	updateSpeedTimer = registerTimerEvent(options[PONG_SPEED_INCREASES_DELAY_O], updateSpeed, 0);
 }
 
 static void newRound(byte playerStarting)
@@ -149,7 +149,7 @@ static void newRound(byte playerStarting)
 	ball.y = random(1, 7);
 	ball.xDir = (playerStarting == 0) ? 1 : -1;
 	ball.yDir = (random(0, 2)) ? 1 : -1;
-	ball.speed = options[PONG_START_DELAY];
+	ball.speed = options[PONG_START_DELAY_O];
 
 	players[0].y = players[1].y = 3;
 

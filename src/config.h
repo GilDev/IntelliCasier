@@ -1,6 +1,9 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
+// Delays are inversely proportional to speed
+// Delays are in milliseconds
+
 /* ----- General settings ----- */
 //#define DEBUG            // Activate serial messages & internal LED blinking every 1000 loop cycle
 #define SERIAL_BAUD 9600 // Serial communication speed
@@ -30,21 +33,28 @@ static const unsigned char buttonsPins[] = {
 
 
 /* ----- LED matrix ----- */
-#define DEFAULT_MATRIX_INTENSITY 5     // Default LEDs intensity between 0-15
-#define SCREENSAVER_MATRIX_INTENSITY 0 // Default LEDs intensity between 0-15
-#define TEXT_SCROLLING_SPEED  200      // Time between a column shift occurs when scrolling text in milliseconds
-#define EMPTY_SPACE_SIZE 3             // Number of blank columns to display between words when scrolling
-#define EMPTY_SPACE_ROLL_SIZE 8        // Number of blank columns to display when rolling over when scrolling
+#define MATRIX_BRIGHTNESS             5   // Default LEDs intensity between 0-15
+#define MATRIX_SCREENSAVER_BRIGHTNESS 0   // Default LEDs intensity between 0-15
+#define MATRIX_SCROLL_DELAY           200 // Time between a column shift occurs when scrolling text
+#define MATRIX_EMPTY_SPACE_SIZE       3   // Number of blank columns to display between words when scrolling
+#define MATRIX_EMPTY_SPACE_ROLL_SIZE  8   // Number of blank columns to display when rolling over when scrolling
 
 
 /* ----- Pong ----- */
-#define DELAY_BETWEEN_PADDLE_MOVES 200    // Delay between moves when holding up/down
-#define STARTING_SPEED 500                // Time between ball position updates in milliseconds
-#define MAXIMUM_SPEED 100                 // Shortest time between ball position updates in milliseconds
-#define DELAY_BETWEEN_SPEED_INCREASE 5000 // In milliseconds
+#define PONG_PADDLE_DELAY          200  // Delay between moves when holding up/down
+#define PONG_START_DELAY           500  // Time between ball position updates
+#define PONG_MIN_DELAY             100  // Shortest time between ball position updates
+#define PONG_SPEED_INCREASES_DELAY 5000 // Delay between ball speed increases
 
 
 /* ----- Snake ----- */
-#define SNAKE_SPEED 500 // Delay between snake's moves in milliseconds
+#define SNAKE_MOVE_DELAY 500 // Delay between snake's moves
+
+
+/* ----- Flappy Bird ----- */
+#define FLAPPY_BIRD_FALL_DELAY            500
+#define FLAPPY_BIRD_START_DELAY           1000
+#define FLAPPY_BIRD_MIN_DELAY             100
+#define FLAPPY_BIRD_SPEED_INCREASES_DELAY 5000
 
 #endif

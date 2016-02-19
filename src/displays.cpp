@@ -769,11 +769,11 @@ static void matrixScroll(byte data)
 	if (!printingEmptySpace && (x >= pgm_read_byte(&font[actualLetterId][8]) || scrollingMatrixText[c] == ' ' || scrollingMatrixText[c] == '\0')) {
 		switch (scrollingMatrixText[++c]) {
 			case ' ':
-				x = EMPTY_SPACE_SIZE;
+				x = MATRIX_EMPTY_SPACE_SIZE;
 				c++;
 				break;
 			case '\0':
-				x = EMPTY_SPACE_ROLL_SIZE;
+				x = MATRIX_EMPTY_SPACE_ROLL_SIZE;
 				c = 0;
 				break;
 			default:
@@ -800,7 +800,7 @@ static void matrixScroll(byte data)
 		x++;
 	}
 
-	scrollingTimerId = registerTimerEvent(options[MATRIX_SCROLLING_SPEED], matrixScroll, 0);
+	scrollingTimerId = registerTimerEvent(options[MATRIX_SCROLL_DELAY_O], matrixScroll, 0);
 }
 
 void newMatrixScroll(const char *text)
@@ -814,7 +814,7 @@ void newMatrixScroll(const char *text)
 		frameBuffer[i] = 0;
 	c = x = printingEmptySpace = 0;
 
-	scrollingTimerId = registerTimerEvent(options[MATRIX_SCROLLING_SPEED], matrixScroll, 0);
+	scrollingTimerId = registerTimerEvent(options[MATRIX_SCROLL_DELAY_O], matrixScroll, 0);
 }
 
 void stopMatrixScroll(void)
@@ -834,7 +834,7 @@ void drawImage(byte *img)
 static void matrixInit(void)
 {
 	matrix.shutdown(0, false);
-	matrix.setIntensity(0, DEFAULT_MATRIX_INTENSITY);
+	matrix.setIntensity(0, MATRIX_BRIGHTNESS);
 }
 
 // LCD

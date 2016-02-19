@@ -6,11 +6,12 @@
 #include "../displays.h"
 #include "../events.h"
 
-static TimerId updateBirdTimer = -1, updateWallsTimer  = -1;
+static TimerId updateBirdTimer = -1, updateWallsTimer = -1, updateSpeedTimer = -1;
 
 static struct {
 	byte y:3;
 	byte wallPassed;
+	unsigned short speed;
 } bird;
 
 static struct {
@@ -19,6 +20,14 @@ static struct {
 } walls[2];
 
 static void gameOver(void);
+
+static void updateSpeed(byte data)
+{
+	if (bird.speed > options[FLAPPY_BIRD_MIN_DELAY_O]) {
+		bird.speed -= 50;
+		updateSpeedTimer = registerTimerEvent(options[FLAPPY_BIRD_SPEED_INCREASES_DELAY_O], updateSpeed, 0);
+	}
+}
 
 static bool collision(void)
 {
@@ -67,7 +76,7 @@ static void updateWalls(byte data)
 	if (collision())
 		return;
 
-	updateWallsTimer = registerTimerEvent(1000, updateWalls, 0);
+	updateWallsTimer = registerTimerEvent(bird.speed, updateWalls, 0);
 }
 
 static void updateBird(byte data)
@@ -84,7 +93,7 @@ static void updateBird(byte data)
 	if (collision())
 		return;
 
-	updateBirdTimer = registerTimerEvent(500, updateBird, 0);
+	updateBirdTimer = registerTimerEvent(options[FLAPPY_BIRD_FALL_DELAY_O], updateBird, 0);
 }
 
 static void fly(byte data)
@@ -118,14 +127,14 @@ static void start(void)
 	setSingleClickHandler(PLAYER2_RIGHT, fly, 0);
 	setSingleClickHandler(MENU, menu, 0);
 
-
 	printLcd(3, 0, "Score :");
 	printLcd(11, 0, bird.wallPassed);
 
 	delay(500);
 
-	updateBirdTimer = registerTimerEvent(500, updateBird, 0);
-	updateWallsTimer = registerTimerEvent(1000, updateWalls, 0);
+	updateBirdTimer = registerTimerEvent(options[FLAPPY_BIRD_FALL_DELAY_O], updateBird, 0);
+	updateWallsTimer = registerTimerEvent(bird.speed, updateWalls, 0);
+	updateSpeedTimer = registerTimerEvent(options[FLAPPY_BIRD_SPEED_INCREASES_DELAY_O], updateSpeed, 0);
 }
 
 static void newRound(void)
@@ -133,6 +142,9 @@ static void newRound(void)
 	endRound();
 
 	bird.y = 2;
+	bird.speed = options[FLAPPY_BIRD_START_DELAY_O];
+	bird.wallPassed = 0;
+
 	walls[0].x = 8;
 	walls[1].x = 12;
 	walls[0].yHole = 2;

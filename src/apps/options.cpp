@@ -11,20 +11,25 @@
 static byte selectedOption;
 
 unsigned short options[] = { // Default values
-	DEFAULT_MATRIX_INTENSITY,
-	SCREENSAVER_MATRIX_INTENSITY,
-	TEXT_SCROLLING_SPEED,
-	DELAY_BETWEEN_PADDLE_MOVES,
-	STARTING_SPEED,
-	MAXIMUM_SPEED,
-	DELAY_BETWEEN_SPEED_INCREASE
+	MATRIX_BRIGHTNESS,
+	MATRIX_SCREENSAVER_BRIGHTNESS,
+	MATRIX_SCROLL_DELAY,
+	SNAKE_MOVE_DELAY,
+	FLAPPY_BIRD_FALL_DELAY,
+	FLAPPY_BIRD_START_DELAY,
+	FLAPPY_BIRD_MIN_DELAY,
+	FLAPPY_BIRD_SPEED_INCREASES_DELAY,
+	PONG_PADDLE_DELAY,
+	PONG_START_DELAY,
+	PONG_MIN_DELAY,
+	PONG_SPEED_INCREASES_DELAY
 };
 
 static void updateValue(void)
 {
 	switch (selectedOption) {
-		case BRIGHTNESS:
-			matrix.setIntensity(0, options[BRIGHTNESS]);
+		case MATRIX_BRIGHTNESS_O:
+			matrix.setIntensity(0, options[MATRIX_BRIGHTNESS_O]);
 			break;
 	}
 
@@ -49,20 +54,19 @@ static void changeValue(byte plus)
 {
 	char multiplier = (plus == 0) ? -1 : 1;
 
-	switch (selectedOption) {
-		case MATRIX_SCROLLING_SPEED:
-		case PONG_PADDLE_SPEED:
-		case PONG_START_DELAY:
-		case PONG_MIN_DELAY:
-			options[selectedOption] += 10 * multiplier;
+	switch (selectedOption) { // Different increment depending on value
+		case MATRIX_BRIGHTNESS_O:
+		case MATRIX_SCREENSAVER_BRIGHTNESS_O:
+			options[selectedOption] += 1 * multiplier;
 			break;
 
-		case SPEED_INCREASE_DELAY:
+		case PONG_SPEED_INCREASES_DELAY_O:
+		case FLAPPY_BIRD_SPEED_INCREASES_DELAY_O:
 			options[selectedOption] += 100 * multiplier;
 			break;
 
 		default:
-			options[selectedOption] += 1 * multiplier;
+			options[selectedOption] += 10 * multiplier;
 	}
 	
 	updateValue();

@@ -83,7 +83,7 @@ static void updateSnake(byte data)
 
 	snake.hasTurned = false;
 
-	updateSnakeTimer = registerTimerEvent(SNAKE_SPEED, updateSnake, 0);
+	updateSnakeTimer = registerTimerEvent(options[SNAKE_MOVE_DELAY_O], updateSnake, 0);
 }
 
 static void blinkApple(byte data)
@@ -145,7 +145,7 @@ static void start(void)
 
 	delay(500);
 
-	updateSnakeTimer = registerTimerEvent(SNAKE_SPEED, updateSnake, 0);
+	updateSnakeTimer = registerTimerEvent(options[SNAKE_MOVE_DELAY_O], updateSnake, 0);
 	blinkAppleTimer = registerTimerEvent(100, blinkApple, 0);
 }
 
