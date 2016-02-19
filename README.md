@@ -35,7 +35,7 @@ Requirements
 
 * [Arduino (I use a Nano with an ATmega328)](http://www.banggood.com/ATmega328P-Nano-V3-Controller-Board-Compatible-Arduino-p-940937.html)
 * [MAX7219/MAX7221 with 8*8 LED matrix](http://www.banggood.com/MAX7219-Dot-Matrix-MCU-LED-Display-Control-Module-Kit-For-Arduino-p-915478.html)
-* [I2C 16*8 LCD display](http://www.banggood.com/IIC-I2C-1602-Blue-Backlight-LCD-Display-Module-For-Arduino-p-950726.html) (can work without but best to have it for ease of navigation)
+* [I2C 16*8 LCD display](http://www.banggood.com/IIC-I2C-1602-Blue-Backlight-LCD-Display-Module-For-Arduino-p-950726.html)
 * 5 momentary pushbuttons
 * [DS3231 I2C RTC](http://www.banggood.com/DS3231-AT24C32-IIC-High-Precision-Real-Time-Clock-Module-For-Arduino-p-81066.html) *(optional)*
 * Piezoelectric buzzer *(optional)* **(not currently implemented)**
@@ -67,3 +67,5 @@ Todo
 * Flappy Bird
 * High scores with the ability to enter a name or initials
 * Maybe add a custom `malloc()` to dynamically allocate app's variable memory and not having all those global variables taking place in memory
+* Put animations instead of scrolling text on matrix
+* Clean [`menu.cpp`](src/apps/menu.cpp)

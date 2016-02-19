@@ -1,6 +1,6 @@
 #include <Arduino.h>
-#include <avr/pgmspace.h>
 #include "about.h"
+#include "flappybird.h"
 #include "pong.h"
 #include "snake.h"
 #include "../config.h"
@@ -69,6 +69,14 @@ static void displayMenu(void)
 						lcd.write(0);
 						break;
 					case 2:
+						newMatrixScroll(strings[FLAPPYBIRD]);
+						printLcd(8 - stringsSizes[FLAPPYBIRD] / 2, 0, strings[FLAPPYBIRD]);
+						printLcd(7 - stringsSizes[PLAY], 1, strings[PLAY]);
+						// Print arrow
+						lcd.setCursor(8, 1);
+						lcd.write(0);
+						break;
+					case 3:
 						newMatrixScroll(strings[RACE]);
 						printLcd(8 - stringsSizes[RACE] / 2, 0, strings[RACE]);
 						printLcd(7 - stringsSizes[PLAY], 1, strings[PLAY]);
@@ -76,7 +84,7 @@ static void displayMenu(void)
 						lcd.setCursor(8, 1);
 						lcd.write(0);
 						break;
-					case 3:
+					case 4:
 						drawImage(returnIcon);
 						printLcd(8 - stringsSizes[BACK] / 2, 0, strings[BACK]);
 						// Print arrow
@@ -121,8 +129,17 @@ static void left(byte data)
 		else
 			menuSelection--;
 	} else {
+		byte limit;
+		switch (menuSelection) {
+			case 0:
+				limit = 4;
+				break;
+
+			case 1:
+				limit = 3;
+		}
 		if (submenuSelection == 1)
-			submenuSelection = 3;
+			submenuSelection = limit;
 		else
 			submenuSelection--;
 	}
@@ -138,7 +155,16 @@ static void right(byte data)
 		else
 			menuSelection++;
 	} else {
-		if (submenuSelection == 3)
+		byte limit;
+		switch (menuSelection) {
+			case 0:
+				limit = 4;
+				break;
+
+			case 1:
+				limit = 3;
+		}
+		if (submenuSelection == limit)
 			submenuSelection = 1;
 		else
 			submenuSelection++;
@@ -174,6 +200,9 @@ static void menu(byte data)
 						case 1:
 							showSnake();
 							break;
+
+						case 2:
+							showFlappyBird();
 					}
 					break;
 				case 1: // 2 players games

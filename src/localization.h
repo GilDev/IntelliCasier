@@ -17,6 +17,7 @@ enum Strings {
 	ABOUT,
 	RACE,
 	SNAKE,
+	FLAPPYBIRD,
 	PONG,
 	TRON,
 	READY,

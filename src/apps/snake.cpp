@@ -9,8 +9,7 @@
 #define LEFT  0
 #define RIGHT 1
 
-static TimerId updateSnakeTimer = -1;
-static TimerId blinkAppleTimer  = -1;
+static TimerId updateSnakeTimer = -1, blinkAppleTimer  = -1;
 
 static struct {
 	byte x:3;
