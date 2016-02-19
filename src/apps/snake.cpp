@@ -77,7 +77,7 @@ static void updateSnake(byte data)
 	matrix.setLed(0, snake.body.y[0], snake.body.x[0], true);
 
 	if (snake.body.x[0] == apple.x && snake.body.y[0] == apple.y) {
-		printLcd(10, 0, ++snake.length - 3);
+		printLcd(11, 0, ++snake.length - 3);
 		generateApple();
 	}
 
@@ -140,8 +140,8 @@ static void start(void)
 		matrix.setLed(0, snake.body.y[i], snake.body.x[i], true);
 	matrix.setLed(0, apple.y, apple.x, apple.on);
 
-	printLcd(2, 0, "Score :");
-	printLcd(10, 0, snake.length - 3);
+	printLcd(3, 0, "Score :");
+	printLcd(11, 0, snake.length - 3);
 
 	delay(500);
 

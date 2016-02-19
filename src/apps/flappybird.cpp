@@ -50,7 +50,7 @@ static void updateWalls(byte data)
 			matrix.setLed(0, bird.y, 0, true);
 			generateWall(i);
 			bird.wallPassed++;
-			printLcd(10, 0, bird.wallPassed);
+			printLcd(11, 0, bird.wallPassed);
 		} else {
 			matrix.setColumn(0, walls[i].x, 0x00);
 			walls[i].x--;
@@ -119,8 +119,8 @@ static void start(void)
 	setSingleClickHandler(MENU, menu, 0);
 
 
-	printLcd(2, 0, "Score :");
-	printLcd(10, 0, bird.wallPassed);
+	printLcd(3, 0, "Score :");
+	printLcd(11, 0, bird.wallPassed);
 
 	delay(500);
 
