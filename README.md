@@ -13,21 +13,22 @@ Features
 --------
 
 * Main menu (LCD + Matrix):
-  * 1 player games: **(not currently implemented)**
-    * Breakout
-    * Race
+  * 1 player games:
     * Snake
-  * 2 player games: **(not currently implemented)**
+	* Flappy Bird
+    * Breakout **(not currently implemented)**
+    * Race **(not currently implemented)**
+  * 2 player games:
     * Pong
-    * Tron/Snake
-  * About screen with hidden option menu **(not currently implemented)**
+    * Tron/Snake **(not currently implemented)**
+  * About screen with hidden option menu
 * Event-driven software
 * Multi-languages interface, easily localizable
 * Screensaver with delay depending on context
 * High-scores logging **(not currently implemented)**
 * Sounds **(not currently implemented)**
 * Alarm when opening locker without pressing a predefined sequence of buttons **(not currently implemented)**
-* Automatic standby based on the time **(not currently implemented)**
+* Automatic standby based on time **(not currently implemented)**
 
 
 Requirements
@@ -37,7 +38,7 @@ Requirements
 * [MAX7219/MAX7221 with 8*8 LED matrix](http://www.banggood.com/MAX7219-Dot-Matrix-MCU-LED-Display-Control-Module-Kit-For-Arduino-p-915478.html)
 * [I2C 16*8 LCD display](http://www.banggood.com/IIC-I2C-1602-Blue-Backlight-LCD-Display-Module-For-Arduino-p-950726.html)
 * 5 momentary pushbuttons
-* [DS3231 I2C RTC](http://www.banggood.com/DS3231-AT24C32-IIC-High-Precision-Real-Time-Clock-Module-For-Arduino-p-81066.html) *(optional)*
+* [DS3231 I2C RTC](http://www.banggood.com/DS3231-AT24C32-IIC-High-Precision-Real-Time-Clock-Module-For-Arduino-p-81066.html) *(optional)* **(not currently implemented)**
 * Piezoelectric buzzer *(optional)* **(not currently implemented)**
 * Photocell (LDR) *(optional)* **(not currently implemented)**
 
@@ -57,15 +58,12 @@ I currently use [Arturo](https://github.com/scottdarch/Arturo) to compile the sk
 Todo
 ----
 
-* Better localization system (kind of ugly right now) I guess
-* Strings in flash with PROGMEM
-* Optimizing event handling (loops)
-* Remove the `repeat` option of timer events and never repeat those events
+* Better localization system (kind of ugly right now, I guess)
+* Strings in flash memory with PROGMEM
+* Events handling optimization (loops)
 * Enhance `newLcdScroll()` (start position, spaces before looping)
-* Ability to exit games while the countdown, well… counts down
 * Settings storage in EEPROM
-* Flappy Bird
 * High scores with the ability to enter a name or initials
-* Maybe add a custom `malloc()` to dynamically allocate app's variable memory and not having all those global variables taking place in memory
-* Put animations instead of scrolling text on matrix
+* Maybe add a custom `malloc()` to dynamically allocate app's variable memory and not having all those global variables taking place in memory (or just use `malloc()`?)
+* Put animations instead of scrolling text on matrix and maybe remove all that code to scroll text on the matrix now that there is an LCD display
 * Clean [`menu.cpp`](src/apps/menu.cpp)
