@@ -35,7 +35,7 @@ static void lcdUpdate(byte data)
 		clearLcdLine(0);
 	} else {
 		displaying = true;
-		printLcd(5, 0, "ARCADE");
+		printLcd(8 - stringsSizes[SMART_LOCKER] / 2, 0, strings[SMART_LOCKER]);
 	}
 
 	lcdUpdateTimer = registerTimerEvent(500, lcdUpdate, 0);

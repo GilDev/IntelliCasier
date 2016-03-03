@@ -40,7 +40,6 @@ static void displayMenu(void)
 				lcd.write(0);
 				break;
 			case 1:
-				stopMatrixScroll();
 				newMatrixScroll(strings[GAMES_2_PLAYERS_MATRIX]);
 				printLcd(8 - stringsSizes[GAMES_2_PLAYERS_LCD] / 2, 0, strings[GAMES_2_PLAYERS_LCD]);
 				printLcd(7 - stringsSizes[CONFIRM], 1, strings[CONFIRM]);

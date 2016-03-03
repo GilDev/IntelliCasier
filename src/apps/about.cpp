@@ -46,7 +46,7 @@ void showAbout(void)
 
 	pos = 0;
 
-	newMatrixScroll(strings[ARCADE_LOCKER]);
+	newMatrixScroll(strings[SMART_LOCKER]);
 	printLcd(7 - stringsSizes[BY_GILDEV] / 2, 0, strings[BY_GILDEV]); // Not centered in English
-	newLcdScroll("http://github.com/GilDev/ArcadeLocker", 1, 200);
+	newLcdScroll("https://github.com/GilDev/IntelliCasier", 1, 200);
 }

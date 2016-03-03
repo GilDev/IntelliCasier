@@ -1,4 +1,4 @@
-Arcade Locker
+IntelliCasier
 =============
 
 This project uses a standard school locker with two 8*8 holes grids. 5 mm LEDs fits beautifully in those holes, small tactile switches too, a LCD display can be added in the name's tag space, thus a boring locker can be easily transformed into a multi-game arcade cabinet. Enjoy!
