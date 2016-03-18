@@ -6,6 +6,8 @@ This project uses a standard school locker with two 8*8 holes grids. 5 mm LEDs 
 *Prototype:*
 ![Second prototype](assets/photos/SecondPrototype2.jpg)
 
+[Presentation video in french](https://www.youtube.com/watch?v=VD672DgCmok), shows the running prototype.
+
 This project is licensed under the terms of the MIT license. Check [`LICENSE.txt`](LICENSE.txt) for more informations.
 
 
