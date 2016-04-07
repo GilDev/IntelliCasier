@@ -22,7 +22,7 @@ Features
     * Race **(not currently implemented)**
   * 2 player games:
     * Pong
-    * Tron/Snake **(not currently implemented)**
+    * Snake
   * About screen with hidden option menu
 * Event-driven software
 * Multi-languages interface, easily localizable
@@ -69,3 +69,6 @@ Todo
 * Maybe add a custom `malloc()` to dynamically allocate app's variable memory and not having all those global variables taking place in memory (or just use `malloc()`?)
 * Put animations instead of scrolling text on matrix and maybe remove all that code to scroll text on the matrix now that there is an LCD display
 * Clean [`menu.cpp`](src/apps/menu.cpp)
+* Remove unnecessary timer events when first launching them in games (just call the callback function, no need to wait on start)
+* Reorganize functions order in apps' code to stay consistent between them
+* Enhance `printLcd()` to center text automatically

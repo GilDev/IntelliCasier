@@ -3,6 +3,7 @@
 #include "flappybird.h"
 #include "pong.h"
 #include "snake.h"
+#include "snake2.h"
 #include "../config.h"
 #include "../displays.h"
 #include "../events.h"
@@ -86,6 +87,7 @@ static void displayMenu(void)
 					case 4:
 						drawImage(returnIcon);
 						printLcd(8 - stringsSizes[BACK] / 2, 0, strings[BACK]);
+						printLcd(7 - stringsSizes[CONFIRM], 1, strings[CONFIRM]);
 						// Print arrow
 						lcd.setCursor(8, 1);
 						lcd.write(0);
@@ -102,8 +104,8 @@ static void displayMenu(void)
 						lcd.write(0);
 						break;
 					case 2:
-						newMatrixScroll(strings[TRON]);
-						printLcd(8 - stringsSizes[TRON] / 2, 0, strings[TRON]);
+						newMatrixScroll(strings[SNAKE]);
+						printLcd(8 - stringsSizes[SNAKE] / 2, 0, strings[SNAKE]);
 						printLcd(7 - stringsSizes[PLAY], 1, strings[PLAY]);
 						// Print arrow
 						lcd.setCursor(8, 1);
@@ -112,6 +114,7 @@ static void displayMenu(void)
 					case 3:
 						drawImage(returnIcon);
 						printLcd(8 - stringsSizes[BACK] / 2, 0, strings[BACK]);
+						printLcd(7 - stringsSizes[CONFIRM], 1, strings[CONFIRM]);
 						// Print arrow
 						lcd.setCursor(8, 1);
 						lcd.write(0);
@@ -186,7 +189,7 @@ static void menu(byte data)
 		displayMenu();
 	} else {
 		// "Return" menu options
-		if (menuSelection == 0 && submenuSelection == 3 ||
+		if (menuSelection == 0 && submenuSelection == 4 ||
 			menuSelection == 1 && submenuSelection == 3) {
 			submenuSelection = 0;
 			printLcd(0, 1, F("        "));
@@ -209,6 +212,9 @@ static void menu(byte data)
 						case 1:
 							showPong();
 							break;
+
+						case 2:
+							showSnake2();
 					}
 			}
 		}

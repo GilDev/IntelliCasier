@@ -5,6 +5,7 @@
 #include "../config.h"
 #include "../displays.h"
 #include "../events.h"
+#include "../localization.h"
 
 #define LEFT  0
 #define RIGHT 1
@@ -175,7 +176,7 @@ static void gameOver(void)
 {
 	endRound();
 	matrix.setLed(0, apple.y, apple.x, true); // In case the apple is off at that time
-	printLcd(3, 1, "Game Over !");
+	printLcd(3, 1, strings[GAME_OVER]);
 	wipeMatrix();
 	delay(500);
 	newRound();
