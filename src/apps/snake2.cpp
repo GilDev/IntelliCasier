@@ -107,10 +107,7 @@ static void updateSnakes(byte data)
 
 static void blinkApple(byte data)
 {
-	if (apple.on)
-		apple.on = false;
-	else
-		apple.on = true;
+	apple.on = !apple.on;
 
 	matrix.setLed(0, apple.y, apple.x, apple.on);
 
@@ -119,10 +116,7 @@ static void blinkApple(byte data)
 
 static void blinkSecondSnake(byte data)
 {
-	if (secondSnakeOn)
-		secondSnakeOn = false;
-	else
-		secondSnakeOn = true;
+	secondSnakeOn = !secondSnakeOn;
 
 	byte i;
 	for (i = 0; i < snake[1].length; i++)

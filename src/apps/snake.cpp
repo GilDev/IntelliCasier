@@ -89,10 +89,7 @@ static void updateSnake(byte data)
 
 static void blinkApple(byte data)
 {
-	if (apple.on)
-		apple.on = false;
-	else
-		apple.on = true;
+	apple.on = !apple.on;
 
 	matrix.setLed(0, apple.y, apple.x, apple.on);
 
