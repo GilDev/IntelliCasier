@@ -23,7 +23,7 @@ Features
   * 2 player games:
     * Pong
     * Snake
-  * About screen with hidden option menu
+  * About screen with hidden option menu & student's schedule display
 * Event-driven software
 * Multi-languages interface, easily localizable
 * Screensaver with delay depending on context
@@ -72,3 +72,4 @@ Todo
 * Remove unnecessary timer events when first launching them in games (just call the callback function, no need to wait on start)
 * Reorganize functions order in apps' code to stay consistent between them
 * Enhance `printLcd()` to center text automatically
+* Allow activation or deactivation of apps in [`config.h`](src/config.h)

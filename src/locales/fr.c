@@ -19,7 +19,7 @@ const char *strings[] = {
 	"Pret",
 	"Partez !",
 	"Game Over !",
-	"Joueur   gagne !",
+	"Joueur   gagne !",
 	"Egalite !",
 	"Appuyez sur un bouton !",
 	"Fait par GilDev",
