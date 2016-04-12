@@ -1,26 +1,39 @@
 #include <Arduino.h>
 #include "menu.h"
 #include "options.h"
+#include "schedule.h"
 #include "../config.h"
 #include "../displays.h"
 #include "../events.h"
 #include "../localization.h"
 
-static byte code[] = {0, 3, 1, 2};
-static byte pos;
+static byte optionsCode[] = {0, 3, 1, 2};
+static byte optionsPos;
+static byte scheduleCode[] = {0, 1, 2, 3};
+static byte schedulePos;
 
 static void exitAbout(void);
 
 static void advanceCode(byte button)
 {
-	if (code[pos] == button) {
-		pos++;
-		if (pos == sizeof code) {
+	if (optionsCode[optionsPos] == button) {
+		optionsPos++;
+		if (optionsPos == sizeof optionsCode) {
 			exitAbout();
 			showOptions();
 		}
 	} else {
-		pos = 0;
+		optionsPos = 0;
+	}
+
+	if (scheduleCode[schedulePos] == button) {
+		schedulePos++;
+		if (schedulePos == sizeof scheduleCode) {
+			exitAbout();
+			showSchedule();
+		}
+	} else {
+		schedulePos = 0;
 	}
 }
 
@@ -44,7 +57,7 @@ void showAbout(void)
 	setSingleClickHandler(PLAYER2_RIGHT, advanceCode, 3);
 	setSingleClickHandler(MENU, menu, 0);
 
-	pos = 0;
+	optionsPos = schedulePos = 0;
 
 	newMatrixScroll(strings[SMART_LOCKER]);
 	printLcd(7 - stringsSizes[BY_GILDEV] / 2, 0, strings[BY_GILDEV]); // Not centered in English
