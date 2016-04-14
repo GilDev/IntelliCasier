@@ -14,7 +14,7 @@
 void setup() {
 	#ifdef DEBUG
 		Serial.begin(SERIAL_BAUD);
-		Serial.print("Ready");
+		Serial.print(F("Ready"));
 	#endif
 
 	#ifdef RTC

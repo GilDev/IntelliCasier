@@ -54,7 +54,7 @@ void exitScreensaver(byte data)
 void showScreensaver(void)
 {
 	#ifdef DEBUG
-		Serial.print("Displaying screensaver\n");
+		Serial.print(F("Displaying screensaver\n"));
 	#endif
 
 	displayingScreensaver = true;

@@ -65,7 +65,7 @@ void eventsUpdateLoop(void)
 					buttons[i].lastActivation = actualTime;
 					if (state == !BUTTON_OPEN) {
 						#ifdef DEBUG
-							Serial.print("Single click: ");
+							Serial.print(F("Single click: "));
 							Serial.println(i);
 						#endif
 						(*buttons[i].callback)(buttons[i].data);
@@ -81,7 +81,7 @@ void eventsUpdateLoop(void)
 				} else {
 					if (!buttons[i].clicked && actualTime - buttons[i].lastActivation > buttons[i].delay) {
 						#ifdef DEBUG
-							Serial.print("Hold click: ");
+							Serial.print(F("Hold click: "));
 							Serial.println(i);
 						#endif
 						buttons[i].clicked = true;
@@ -97,7 +97,7 @@ void eventsUpdateLoop(void)
 			if (state == !BUTTON_OPEN) {
 				if (actualTime - buttons[i].lastActivation > buttons[i].delay) {
 					#ifdef DEBUG
-						Serial.print("Repeat click: ");
+						Serial.print(F("Repeat click: "));
 						Serial.println(i);
 					#endif
 					buttons[i].lastActivation = actualTime;
@@ -118,7 +118,7 @@ void eventsUpdateLoop(void)
 			(*timers[i].callback)(timers[i].data);
 
 			#ifdef DEBUG
-				Serial.print("Timer: ");
+				Serial.print(F("Timer: "));
 				Serial.println(i);
 			#endif
 		}
