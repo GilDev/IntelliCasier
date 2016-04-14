@@ -32,6 +32,13 @@ static const unsigned char buttonsPins[] = {
 };
 
 
+/* ----- App settings ----- */
+#define APP_ABOUT
+#define APP_SNAKE
+#define APP_FLAPPYBIRD
+#define APP_PONG
+#define APP_SNAKE2
+
 /* ----- LED matrix ----- */
 #define MATRIX_BRIGHTNESS             5   // Default LEDs intensity between 0-15
 #define MATRIX_SCREENSAVER_BRIGHTNESS 0   // Default LEDs intensity between 0-15

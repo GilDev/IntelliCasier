@@ -1,27 +1,31 @@
 #include <Arduino.h>
-#include "about.h"
-#include "flappybird.h"
-#include "pong.h"
-#include "snake.h"
-#include "snake2.h"
 #include "../config.h"
 #include "../displays.h"
 #include "../events.h"
 #include "../screensaver.h"
 #include "../localization.h"
 
-static void exitMenu(void);
+#ifdef APP_ABOUT
+#include "about.h"
+#endif
 
-static byte returnIcon[8] = {
-	B00010000,
-	B00110000,
-	B01111100,
-	B00110010,
-	B00010010,
-	B01000010,
-	B00111100,
-	B00000000
-};
+#ifdef APP_FLAPPYBIRD
+#include "flappybird.h"
+#endif
+
+#ifdef APP_PONG
+#include "pong.h"
+#endif
+
+#ifdef APP_SNAKE
+#include "snake.h"
+#endif
+
+#ifdef APP_SNAKE2
+#include "snake2.h"
+#endif
+
+static void exitMenu(void);
 
 struct selection {
 	byte text;
@@ -62,6 +66,7 @@ static struct selection menuMain[] = {
 		},
 		.menuToOpen = 2
 	},
+	#ifdef APP_ABOUT
 	{
 		.text = ABOUT,
 		.icon = {
@@ -77,9 +82,11 @@ static struct selection menuMain[] = {
 		.menuToOpen = -1,
 		.callback = showAbout
 	}
+	#endif
 };
 
 static struct selection menu1PlayerGames[] = {
+	#ifdef APP_SNAKE
 	{
 		.text = SNAKE,
 		.icon = {
@@ -95,6 +102,8 @@ static struct selection menu1PlayerGames[] = {
 		.menuToOpen = -1,
 		.callback = showSnake
 	},
+	#endif
+	#ifdef APP_FLAPPYBIRD
 	{
 		.text = FLAPPYBIRD,
 		.icon = {
@@ -108,8 +117,9 @@ static struct selection menu1PlayerGames[] = {
 			B00001000
 		},
 		.menuToOpen = -1,
-		.callback = showSnake
+		.callback = showFlappyBird
 	},
+	#endif
 	{
 		.text = BACK,
 		.icon = {
@@ -126,6 +136,7 @@ static struct selection menu1PlayerGames[] = {
 	}
 };
 static struct selection menu2PlayerGames[] = {
+	#ifdef APP_PONG
 	{
 		.text = PONG,
 		.icon = {
@@ -141,6 +152,8 @@ static struct selection menu2PlayerGames[] = {
 		.menuToOpen = -1,
 		.callback = showPong
 	},
+	#endif
+	#ifdef APP_SNAKE2
 	{
 		.text = SNAKE,
 		.icon = {
@@ -156,6 +169,7 @@ static struct selection menu2PlayerGames[] = {
 		.menuToOpen = -1,
 		.callback = showSnake2
 	},
+	#endif
 	{
 		.text = BACK,
 		.icon = {
@@ -188,8 +202,10 @@ static void displayMenu(void)
 {
 	clearLcdLine(0);
 
-	//drawImage(menu[currentMenu][currentSelection].icon);
-	newMatrixScroll(strings[menu[currentMenu][currentSelection].text]);
+	if (menu[currentMenu][currentSelection].menuToOpen == 0)
+		drawImage(menu[currentMenu][currentSelection].icon);
+	else
+		newMatrixScroll(strings[menu[currentMenu][currentSelection].text]);
 
 	printLcd(8 - stringsSizes[menu[currentMenu][currentSelection].text] / 2,
 		0,
