@@ -42,10 +42,12 @@ static void print(void)
 	stopLcdScroll(0);
 	clearLcdLine(0);
 
+	strcpy_P(buffer, (char *) pgm_read_word(&(strings[OPTION_1 + selectedOption])));
+
 	if (stringsSizes[OPTION_1 + selectedOption] > 16)
-		newLcdScroll(strings[OPTION_1 + selectedOption], 0, 200);
+		newLcdScroll(buffer, 0, 200);
 	else
-		printLcd(8 - stringsSizes[OPTION_1 + selectedOption], 0, strings[OPTION_1 + selectedOption]);
+		printLcd(8 - stringsSizes[OPTION_1 + selectedOption], 0, buffer);
 
 	updateValue();
 }

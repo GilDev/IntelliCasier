@@ -33,6 +33,8 @@ const char *strings[] = {
 	"Pong: Time between speed change (ms)"
 };
 
+#define BUFFER_SIZE 37 // Max string size + 1
+
 const byte stringsSizes[] = {
 	7,
 	4,

@@ -35,7 +35,7 @@ static void lcdUpdate(byte data)
 		clearLcdLine(0);
 	} else {
 		displaying = true;
-		printLcd(8 - stringsSizes[SMART_LOCKER] / 2, 0, strings[SMART_LOCKER]);
+		printLcd(8 - stringsSizes[SMART_LOCKER] / 2, 0, buffer2);
 	}
 
 	lcdUpdateTimer = registerTimerEvent(500, lcdUpdate, 0);
@@ -73,7 +73,10 @@ void showScreensaver(void)
 	y = 7;
 	x = random(8);
 
-	newLcdScroll(strings[PRESS_BUTTON], 1, 200);
+	strcpy_P(buffer, (char *) pgm_read_word(&(strings[PRESS_BUTTON])));
+	strcpy_P(buffer2, (char *) pgm_read_word(&(strings[SMART_LOCKER])));
+
+	newLcdScroll(buffer, 1, 200);
 
 	displayUpdateTimer = registerTimerEvent(50, displayUpdate, 0);
 	lcdUpdateTimer = registerTimerEvent(500, lcdUpdate, 0);

@@ -6,6 +6,9 @@
 extern const char *strings[];
 extern const byte stringsSizes[]; // stringsSizes[i] == strlen(strings[i]) 
 
+extern char buffer[];
+extern char buffer2[];
+
 enum Strings {
 	CONFIRM,
 	PLAY,

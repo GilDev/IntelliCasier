@@ -5,6 +5,7 @@
 #include "../config.h"
 #include "../displays.h"
 #include "../events.h"
+#include "../localization.h"
 
 static TimerId updateBirdTimer = -1, updateWallsTimer = -1, updateSpeedTimer = -1;
 
@@ -156,7 +157,8 @@ static void newRound(void)
 static void gameOver(void)
 {
 	endRound();
-	printLcd(3, 1, "Game Over !");
+	strcpy_P(buffer, (char *) pgm_read_word(&(strings[GAME_OVER])));
+	printLcd(3, 1, buffer);
 	wipeMatrix();
 	delay(500);
 	newRound();

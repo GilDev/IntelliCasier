@@ -59,7 +59,10 @@ void showAbout(void)
 
 	optionsPos = schedulePos = 0;
 
-	newMatrixScroll(strings[SMART_LOCKER]);
-	printLcd(7 - stringsSizes[BY_GILDEV] / 2, 0, strings[BY_GILDEV]); // Not centered in English
+	strcpy_P(buffer, (char *) pgm_read_word(&(strings[SMART_LOCKER])));
+	strcpy_P(buffer2, (char *) pgm_read_word(&(strings[BY_GILDEV])));
+
+	newMatrixScroll(buffer);
+	printLcd(7 - stringsSizes[BY_GILDEV] / 2, 0, buffer2); // Not centered in English
 	newLcdScroll("https://github.com/GilDev/IntelliCasier", 1, 200);
 }

@@ -4,6 +4,7 @@
 #include "../events.h"
 #include "../screensaver.h"
 #include "../localization.h"
+#include <avr/pgmspace.h>
 
 #ifdef APP_ABOUT
 #include "about.h"
@@ -30,7 +31,7 @@ static void exitMenu(void);
 struct selection {
 	byte text;
 	byte icon[8];
-	byte menuToOpen; // -1 = call callback() instead
+	byte menuToOpen; // 0xFF = call callback() instead
 	void (*callback)(void);
 };
 
@@ -202,14 +203,16 @@ static void displayMenu(void)
 {
 	clearLcdLine(0);
 
+	static char buffer[40];
+	strcpy_P(buffer, (char *) pgm_read_word(&(strings[menu[currentMenu][currentSelection].text])));
+
 	if (menu[currentMenu][currentSelection].menuToOpen == 0)
 		drawImage(menu[currentMenu][currentSelection].icon);
-	else
-		newMatrixScroll(strings[menu[currentMenu][currentSelection].text]);
+	else {
+		newMatrixScroll(buffer);
+	}
 
-	printLcd(8 - stringsSizes[menu[currentMenu][currentSelection].text] / 2,
-		0,
-		strings[menu[currentMenu][currentSelection].text]);
+	printLcd(8 - stringsSizes[menu[currentMenu][currentSelection].text] / 2, 0, buffer);
 }
 
 static void changeSelection(byte right)
@@ -240,7 +243,8 @@ void showMenu(void)
 {
 	clearDisplays();
 
-	printLcd(7 - stringsSizes[CONFIRM], 1, "Valider");
+	strcpy_P(buffer2, (char *) pgm_read_word(&(strings[CONFIRM])));
+	printLcd(7 - stringsSizes[CONFIRM], 1, buffer2);
 	lcd.setCursor(8, 1);
 	lcd.write(0);
 

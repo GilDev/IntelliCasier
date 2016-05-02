@@ -173,7 +173,8 @@ static void gameOver(void)
 {
 	endRound();
 	matrix.setLed(0, apple.y, apple.x, true); // In case the apple is off at that time
-	printLcd(3, 1, strings[GAME_OVER]);
+	strcpy_P(buffer, (char *) pgm_read_word(&(strings[GAME_OVER])));
+	printLcd(3, 1, buffer);
 	wipeMatrix();
 	delay(500);
 	newRound();

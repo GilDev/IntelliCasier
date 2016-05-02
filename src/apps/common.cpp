@@ -1,4 +1,5 @@
 #include <Arduino.h>
+#include "common.h"
 #include "../displays.h"
 #include "../events.h"
 #include "../localization.h"
@@ -47,19 +48,22 @@ static void count(byte number)
 	switch (number) {
 		case 3:
 			drawImage(numbers[0]);
-			printLcd(8 - stringsSizes[READY] / 2, 0, strings[READY]);
+			strcpy_P(buffer, (char *) pgm_read_word(&(strings[READY])));
+			printLcd(8 - stringsSizes[READY] / 2, 0, buffer);
 			break;
 
 		case 2:
 			drawImage(numbers[1]);
+			strcpy_P(buffer, (char *) pgm_read_word(&(strings[SET])));
 			clearLcdLine(0);
-			printLcd(8 - stringsSizes[SET] / 2, 0, strings[SET]);
+			printLcd(8 - stringsSizes[SET] / 2, 0, buffer);
 			break;
 
 		case 1:
 			drawImage(numbers[2]);
+			strcpy_P(buffer, (char *) pgm_read_word(&(strings[GO])));
 			clearLcdLine(0);
-			printLcd(8 - stringsSizes[GO] / 2, 0, strings[GO]);
+			printLcd(8 - stringsSizes[GO] / 2, 0, buffer);
 			break;
 
 		case 0:

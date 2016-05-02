@@ -14,4 +14,8 @@ void countdown(void (*endCallback)(void), void (*exitCallback)(byte data));
  */
 void wipeMatrix(void);
 
+/**
+ * 
+ */
+
 #endif

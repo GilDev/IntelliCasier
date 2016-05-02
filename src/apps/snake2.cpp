@@ -221,22 +221,26 @@ static void gameOver(byte s)
 {
 	endRound();
 	matrix.setLed(0, apple.y, apple.x, true); // In case the apple is off at that time
-	printLcd(3, 0, strings[GAME_OVER]);
+	strcpy_P(buffer, (char *) pgm_read_word(&(strings[GAME_OVER])));
+	printLcd(3, 0, buffer);
 	switch (s) {
 		case 0:
-			printLcd(0, 1, strings[PLAYER_WIN]);
+			strcpy_P(buffer2, (char *) pgm_read_word(&(strings[PLAYER_WIN])));
+			printLcd(0, 1, buffer2);
 			printLcd(7, 1, "2");
 			snake[1].score++;
 			break;
 
 		case 1:
-			printLcd(0, 1, strings[PLAYER_WIN]);
+			strcpy_P(buffer2, (char *) pgm_read_word(&(strings[PLAYER_WIN])));
+			printLcd(0, 1, buffer2);
 			printLcd(7, 1, "1");
 			snake[0].score++;
 			break;
 
 		case 2:
-			printLcd(4, 1, strings[TIE]);
+			strcpy_P(buffer2, (char *) pgm_read_word(&(strings[TIE])));
+			printLcd(4, 1, buffer2);
 	}
 	wipeMatrix();
 	delay(500);
