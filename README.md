@@ -60,16 +60,15 @@ I currently use [Arturo](https://github.com/scottdarch/Arturo) to compile the sk
 Todo
 ----
 
-* Better localization system (kind of ugly right now, I guess)
-* Strings in flash memory with PROGMEM
+* Better localization system (kind of ugly right now, I guess?)
 * Events handling optimization (loops)
 * Enhance `newLcdScroll()` (start position, spaces before looping)
 * Settings storage in EEPROM
 * High scores with the ability to enter a name or initials
-* Maybe add a custom `malloc()` to dynamically allocate app's variable memory and not having all those global variables taking place in memory (or just use `malloc()`?)
-* Put animations instead of scrolling text on matrix and maybe remove all that code to scroll text on the matrix now that there is an LCD display
-* Clean [`menu.cpp`](src/apps/menu.cpp)
+* **Maybe add a custom `malloc()` to dynamically allocate app's variable memory and not having all those global variables taking place in memory (or just use `malloc()`?)**
+* **Put animations instead of scrolling text on matrix and maybe remove all that code to scroll text on the matrix now that there is an LCD display**
 * Remove unnecessary timer events when first launching them in games (just call the callback function, no need to wait on start)
 * Reorganize functions order in apps' code to stay consistent between them
-* Enhance `printLcd()` to center text automatically
-* Allow activation or deactivation of apps in [`config.h`](src/config.h)
+* Enhance `printLcd()` to center text automatically? (would consume cycles using `strlen()`)
+* Put strings buffers in an array?
+* Add animations to screensaver
