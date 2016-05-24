@@ -25,7 +25,8 @@ static void advanceCode(byte button)
 	} else {
 		optionsPos = 0;
 	}
-
+	
+	#ifdef APP_SCHEDULE
 	if (scheduleCode[schedulePos] == button) {
 		schedulePos++;
 		if (schedulePos == sizeof scheduleCode) {
@@ -35,6 +36,7 @@ static void advanceCode(byte button)
 	} else {
 		schedulePos = 0;
 	}
+	#endif
 }
 
 static void menu(byte data)

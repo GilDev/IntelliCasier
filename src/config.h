@@ -23,8 +23,11 @@
 #define MAX_CHIP_CLK_PIN  4
 #define MAX_CHIP_LOAD_PIN 3
 
+#define BUZZER_PIN 5
+#define PHOTORESISTOR_PIN A7
+
 static const unsigned char buttonsPins[] = {
-	5, // PLAYER1_LEFT
+	12, // PLAYER1_LEFT
 	6, // PLAYER1_RIGHT
 	8, // PLAYER2_LEFT
 	9, // PLAYER2_RIGHT
@@ -38,6 +41,7 @@ static const unsigned char buttonsPins[] = {
 #define APP_FLAPPYBIRD
 #define APP_PONG
 #define APP_SNAKE2
+#define APP_SCHEDULE
 
 /* ----- LED matrix ----- */
 #define MATRIX_BRIGHTNESS             5   // Default LEDs intensity between 0-15

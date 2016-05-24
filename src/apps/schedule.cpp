@@ -2,6 +2,7 @@
 #include "menu.h"
 #include "common.h"
 #include "options.h"
+#include "../alarm.h"
 #include "../config.h"
 #include "../displays.h"
 #include "../events.h"
@@ -176,12 +177,15 @@ static void previousLesson(byte data)
 static void menu(byte data)
 {
 	cancelTimerEvent(&blinkSelectedLessonTimer);
+	alarmOn();
 	showMenu();
 }
 
 void showSchedule(void)
 {
 	clearDisplays();
+
+	alarmOff();
 
 	selectedDay = selectedLesson = 0;
 

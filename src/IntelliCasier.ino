@@ -1,4 +1,5 @@
 #include <Arduino.h>
+#include "alarm.h"
 #include "config.h"
 #include "displays.h"
 #include "events.h"
@@ -7,21 +8,12 @@
 
 #ifdef RTC
 	#include <Wire.h>
-	#include "time.h"
 #endif
 
 
 void setup() {
 	#ifdef DEBUG
 		Serial.begin(SERIAL_BAUD);
-		Serial.print(F("Ready"));
-	#endif
-
-	#ifdef RTC
-		timeInit();
-		randomSeed(getTime().getEpoch());
-	#else
-		randomSeed(analogRead(A7));
 	#endif
 
 	// Inputs
@@ -32,6 +24,25 @@ void setup() {
 	displaysInit();
 	eventsInit();
 	showMenu();
+
+	#ifdef RTC
+		timeInit();
+		randomSeed(getTime().getEpoch());
+	#else
+		randomSeed(analogRead(A7));
+	#endif
+
+	#ifdef DEBUG
+		Serial.print(F("Ready"));
+	#endif
+
+/*	pinMode(5, OUTPUT);
+	for (byte i = 0; i < 255; i++) {
+		analogWrite(5, i);
+		delay(10);
+		Serial.println(i);
+	}
+	digitalWrite(5, false);*/
 }
 
 void loop() {
@@ -52,4 +63,5 @@ void loop() {
 
 		digitalWrite(13, ledState);
 	#endif
+	digitalWrite(13, HIGH);
 }
