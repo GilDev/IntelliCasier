@@ -26,6 +26,9 @@
 #define BUZZER_PIN 5
 #define PHOTORESISTOR_PIN A7
 
+#define ALARM // Define to activate alarm
+#define ALARM_SENSIVITY 50
+
 static const unsigned char buttonsPins[] = {
 	12, // PLAYER1_LEFT
 	6, // PLAYER1_RIGHT

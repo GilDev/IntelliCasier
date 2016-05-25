@@ -1,4 +1,5 @@
 #include <Arduino.h>
+#include "alarm.h"
 #include "config.h"
 #include "displays.h"
 #include "events.h"
@@ -67,6 +68,8 @@ void showScreensaver(void)
 
 	clearDisplays();
 	cancelAllTimerEvents();
+
+	alarmScreensaver();
 
 	matrix.setIntensity(0, options[MATRIX_SCREENSAVER_BRIGHTNESS_O]);
 	matrix.setRow(0, 0, 255);

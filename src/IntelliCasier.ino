@@ -23,6 +23,7 @@ void setup() {
 
 	displaysInit();
 	eventsInit();
+	alarmInit();
 	showMenu();
 
 	#ifdef RTC

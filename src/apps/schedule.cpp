@@ -7,6 +7,7 @@
 #include "../displays.h"
 #include "../events.h"
 #include "../localization.h"
+#include "../screensaver.h"
 
 
 static char *lessonName[] = {"Histoire-Geo", "Anglais", "Physique-Chimie", "SI", "ISN", "Allemand", "Mathematiques", "Philosophie", "EPS"};
@@ -184,6 +185,8 @@ static void menu(byte data)
 void showSchedule(void)
 {
 	clearDisplays();
+
+	screensaverDelay = -1;
 
 	alarmOff();
 

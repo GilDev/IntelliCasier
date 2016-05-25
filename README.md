@@ -29,7 +29,7 @@ Features
 * Screensaver with delay depending on context
 * High-scores logging **(not currently implemented)**
 * Sounds **(not currently implemented)**
-* Alarm when opening locker without pressing a predefined sequence of buttons **(not currently implemented)**
+* Alarm when opening locker without pressing a predefined sequence of buttons
 * Automatic standby based on time **(not currently implemented)**
 
 
@@ -60,6 +60,7 @@ I currently use [Arturo](https://github.com/scottdarch/Arturo) to compile the sk
 Todo
 ----
 
+* Sounds!!
 * Better localization system (kind of ugly right now, I guess?)
 * Events handling optimization (loops)
 * Enhance `newLcdScroll()` (start position, spaces before looping)
