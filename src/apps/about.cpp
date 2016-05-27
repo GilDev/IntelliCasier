@@ -66,5 +66,5 @@ void showAbout(void)
 
 	newMatrixScroll(buffer);
 	printLcd(7 - stringsSizes[BY_GILDEV] / 2, 0, buffer2); // Not centered in English
-	newLcdScroll("https://github.com/GilDev/IntelliCasier", 1, 200);
+	newLcdScroll("http://bit.ly/IntelliCasier", 1, 200);
 }
